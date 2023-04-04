@@ -22,11 +22,10 @@ def main():
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                pass
+                run = False
 
     pygame.quit()
 
 
 if __name__ == "__main__":
     main()
-print(type(BACKGROUND))
