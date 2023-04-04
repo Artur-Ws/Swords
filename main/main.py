@@ -1,7 +1,8 @@
 import pygame
 import os
-r = 105
-SCREEN_SIZE = (1920, 1080)
+
+
+SCREEN_SIZE = (1920, 1030)
 WIN = pygame.display.set_mode(SCREEN_SIZE)
 FPS = 60
 MAIN_COLOR = (105, 93, 79)
