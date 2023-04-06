@@ -1,1 +1,1 @@
-### Game created in python with pygame ispired by Swords and Sandals
+### Game created in python with pygame inspired by Swords and Sandals
