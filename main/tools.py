@@ -4,15 +4,7 @@ import weakref
 debug_refs = []
 
 
-class KeepReferences(object):
-    __refs__ = defaultdict(list)
-    def __init__(self):
-        self.__refs__[self.__class__].append(weakref.ref(self))
-
-    @classmethod
-    def get_instances(cls):
-        for inst_ref in cls.__refs__[cls]:
-            inst = inst_ref()
-            if inst is not None:
-                yield inst
-
+def debug_log():
+    for i, debug in enumerate(debug_refs):
+        debug.log_info(i)
+        debug.remove_if_expired()
