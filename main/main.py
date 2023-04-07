@@ -1,13 +1,20 @@
 import pygame
 import os
+import configparser
 from debug_log import debug
 
-SCREEN_SIZE = (1920, 1030)
+config = configparser.ConfigParser()
+config.read("config.ini")
+
+screen_width = config.getint("General", "screen_width")
+screen_height = config.getint("General", "screen_height")
+FPS = config.getint("General", "FPS")
+title = config.get("General", "title")
+
+SCREEN_SIZE = (screen_width, screen_height)
 WIN = pygame.display.set_mode(SCREEN_SIZE)
-FPS = 60
-MAIN_COLOR = (105, 93, 79)
 BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join('..', 'assets', 'background.jpg')), SCREEN_SIZE)
-pygame.display.set_caption("Axes and Creampies")
+pygame.display.set_caption(title)
 
 
 def draw_window():
