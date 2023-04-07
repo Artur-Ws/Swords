@@ -1,6 +1,3 @@
-from collections import defaultdict
-import weakref
-
 debug_refs = []
 
 
