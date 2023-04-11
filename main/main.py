@@ -1,7 +1,8 @@
 import pygame
 import os
 import configparser
-from debug_log import debug
+from debug_log import Debug
+from tools import debug_log
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -24,7 +25,6 @@ def draw_window():
 def main():
     clock = pygame.time.Clock()
     run = True
-    static_log = ""
     while run:
         clock.tick(FPS)
         draw_window()
@@ -33,8 +33,9 @@ def main():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 run = False
 
-        debug(static_log)
+        debug_log()
         pygame.display.update()
+
     pygame.quit()
 
 
