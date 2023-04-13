@@ -12,7 +12,7 @@ class Character:
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
-    def attack(self, target):
+    def attack(self, target: Character):
         damage = max(0, self.strength - target.defense)
 
         target.get_damage(damage)
