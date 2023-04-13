@@ -1,0 +1,30 @@
+{
+    "Wolf": {
+        "name": "Wolf",
+        "strength": 10,
+        "defense": 2,
+        "health_points": 40,
+        "loot": {
+            "pelt":{
+                "drop_chance": 30,
+                "value": 10
+            },
+            "fang": {
+                "drop_chance": 40,
+                "value": 5
+            }
+        }
+    },
+    "Fox": {
+        "name": "Fox",
+        "strength": 5,
+        "defense": 1,
+        "health_points": 30,
+        "loot": {
+            "pelt":{
+                "drop_chance": 30,
+                "value": 10
+            }
+        }
+    }
+}
