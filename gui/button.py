@@ -1,5 +1,6 @@
 import pygame
 import os
+import sys
 
 
 class Button():
@@ -9,8 +10,8 @@ class Button():
         self.y_pos = y_pos
         self.rect = self.image.get_rect(center=(self.x_pos,self.y_pos))
         self.text_input = text_input
-        self.__button_font = pygame.font.SysFont("cambria", 50)
-        self.text = self.__button_font.render(self.text_input, True, "white")
+        self.__button_font = pygame.font.SysFont("Lobster", 50)
+        self.text = self.__button_font.render(self.text_input, True, [5, 5, 5])
         self.text_rect = self.text.get_rect(center=(self.x_pos, self.y_pos))
 
     def update(self):
@@ -19,19 +20,14 @@ class Button():
         surface.blit(self.text, self.text_rect)
 
     def check_for_input(self, position):
-        if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
+        if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top,
+                                                                                          self.rect.bottom):
             print("Button Press!")
 
     def change_color(self, position):
-        if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom):
+        if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top,
+                                                                                          self.rect.bottom):
             self.text = self.__button_font.render(self.text_input, True, "yellow")
         else:
             self.text = self.__button_font.render(self.text_input, True, "white")
 
-
-button_surface = pygame.image.load(os.path.join('..', 'assets', 'button.png'))
-button_surface = pygame.transform.scale(button_surface, (300, 100))
-
-button_play = Button(button_surface, 960, 300, "play")
-button_option = Button(button_surface, 960, 450, "options")
-button_quit = Button(button_surface, 960, 600, "quit")
