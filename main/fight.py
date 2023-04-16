@@ -40,6 +40,7 @@ class fight:
           action = input("Select action: Attack or Idle")
           return action
 
+
     def fight_loop(self,player: Character, target: Character, damage):
            while player.alive == True and target.alive == True:
                 if self.action() == "Attack":
