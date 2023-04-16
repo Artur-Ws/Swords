@@ -30,6 +30,7 @@ class fight:
                                                                 "drop_chance": 30,
                                                                 "value": 10 }}}}}
    
+   
     def choose_environment(self):
            environment = input("Select place where are you want to go (forest, meadow)")
            return environment                  
