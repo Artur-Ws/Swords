@@ -8,11 +8,11 @@ class Character:
         self.defense = defense
         self.health_points = health_points
         self.alive = True
-        self.image = pygame.image.load()
-        self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
+        # self.image = pygame.image.load()
+        # self.rect = self.image.get_rect()
+        # self.rect.center = (x, y)
 
-    def attack(self, target: Character):
+    def attack(self, target: 'Character'):
         damage = max(0, self.strength - target.defense)
 
         target.get_damage(damage)
