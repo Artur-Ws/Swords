@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, ForeignKey, Column, String, Integer
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
 
 Base = declarative_base()
 
@@ -19,4 +19,11 @@ class Environment(Base):
 
     def __repr__(self):
         return f"{self.id}. Location: {self.name}. Possible enemies: {self.enemies}"
-    
+
+    def add_entry(self):
+        engine = create_engine("sqlite:///databases/environments.db", echo=True)
+        Base.metadata.create_all(bind=engine)
+        Session = sessionmaker(bind=engine)
+        session = Session()
+        session.add(self)
+        session.commit()
