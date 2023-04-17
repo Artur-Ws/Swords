@@ -16,7 +16,6 @@ class Item(Base):
     mana = Column("mana", Integer)
     value = Column("value", Integer)
 
-
     def __init__(self, id, name, level, category, armor, damage, health, mana, value):
         self.id = id
         self.name = name
