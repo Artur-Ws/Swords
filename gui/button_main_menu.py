@@ -1,4 +1,6 @@
-from gui.button import *
+import pygame
+import os
+from gui.button import Button
 
 button_surface = pygame.image.load(os.path.join('..', 'assets', 'button.png'))
 button_surface = pygame.transform.scale(button_surface, (300, 100))

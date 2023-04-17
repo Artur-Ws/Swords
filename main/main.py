@@ -20,6 +20,7 @@ pygame.display.set_caption(title)
 
 
 def draw_window():
+
     WIN.blit(BACKGROUND, (0, 0))
 
 
