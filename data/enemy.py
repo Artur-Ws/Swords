@@ -8,7 +8,7 @@ Base = declarative_base()
 
 class Enemy(Character, Base):
     __tablename__ = "Enemies"
-    id = Column("ID", Integer, primary_key=True)
+    id = Column("ID", Integer, primary_key=True, autoincrement=True)
     name = Column("name", String)
     x = Column("x-pos", Integer)
     y = Column("y-pos", Integer)
@@ -18,9 +18,8 @@ class Enemy(Character, Base):
     # Loot should be inserted as string with loot available for enemy, separated by ", ". Example: "ring, pelt"
     loot = Column("Loot", String)
 
-    def __init__(self, id, name, x, y, strength, defense, health_points, loot):
+    def __init__(self, name, x, y, strength, defense, health_points, loot):
         super().__init__(x, y, name, strength, defense, health_points)
-        self.id = id
         self.name = name
         self.x = x
         self.y = y
@@ -41,4 +40,4 @@ class Enemy(Character, Base):
         session.commit()
 
 
-# Enemy(1, "Wolf", 100, 100, 10, 2, 30, "Pelt, Fang").add_entry()
+# Enemy("Wolf", 100, 100, 10, 2, 30, "Pelt, Fang").add_entry()
