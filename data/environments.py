@@ -7,13 +7,12 @@ Base = declarative_base()
 
 class Environment(Base):
     __tablename__ = "Environments"
-    id = Column("ID", Integer, primary_key=True)
+    id = Column("ID", Integer, primary_key=True, autoincrement=True)
     name = Column("name", String)
     # Enemies should be inserted as string with enemies available in location, separated by ", ". Example: "Wolf, Fox"
     enemies = Column("Enemies", String)
 
-    def __init__(self, id, name, enemies):
-        self.id = id
+    def __init__(self,name, enemies):
         self.name = name
         self.enemies = enemies
 
