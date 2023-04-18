@@ -6,7 +6,7 @@ Base = declarative_base()
 
 class Item(Base):
     __tablename__ = "Items"
-    id = Column("ID", Integer, primary_key=True)
+    id = Column("ID", Integer, primary_key=True, autoincrement=True)
     name = Column("name", String)
     level = Column("level", Integer)
     category = Column("category", String)
@@ -16,8 +16,7 @@ class Item(Base):
     mana = Column("mana", Integer)
     value = Column("value", Integer)
 
-    def __init__(self, id, name, level, category, armor, damage, health, mana, value):
-        self.id = id
+    def __init__(self, name, level, category, armor, damage, health, mana, value):
         self.name = name
         self.level = level
         self.category = category
@@ -39,4 +38,4 @@ class Item(Base):
         session.commit()
 
 
-# Item(1, "Wolf Fur", 0, "Neutral", 0, 0, 0, 0, 10).add_entry()
+# Item("Wolf Fur", 0, "Neutral", 0, 0, 0, 0, 10).add_entry()

@@ -26,3 +26,6 @@ class Environment(Base):
         session = Session()
         session.add(self)
         session.commit()
+
+
+# Environment("Forrest", "Wolf, Fox")

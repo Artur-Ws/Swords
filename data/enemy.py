@@ -40,4 +40,4 @@ class Enemy(Character, Base):
         session.commit()
 
 
-# Enemy(1, "Wolf", 100, 100, 10, 2, 30, "Pelt, Fang").add_entry()
+# Enemy("Wolf", 100, 100, 10, 2, 30, "Pelt, Fang").add_entry()
