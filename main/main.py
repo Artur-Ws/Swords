@@ -3,6 +3,7 @@ import os
 import configparser
 from debug_log import Debug
 from tools import debug_log
+from gui.button_main_menu import *
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -19,6 +20,7 @@ pygame.display.set_caption(title)
 
 
 def draw_window():
+
     WIN.blit(BACKGROUND, (0, 0))
 
 
@@ -28,11 +30,14 @@ def main():
     while run:
         clock.tick(FPS)
         draw_window()
+        button_update()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 run = False
-
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                button_check_for_input()
+            button_change_color()
         debug_log()
         pygame.display.update()
 
@@ -41,3 +46,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
