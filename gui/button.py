@@ -2,10 +2,12 @@ import pygame
 
 
 class Button():
-    def __init__(self, image, x_pos, y_pos, text_input, font="comicsans", font_size=50):
+    def __init__(self, image, x_pos, y_pos, hitbox_x_pos, hitbox_y_pos, text_input, font="comicsans", font_size=50):
         self.image = image
         self.x_pos = x_pos
         self.y_pos = y_pos
+        self.hitbox_x_pos = hitbox_x_pos
+        self.hitbox_y_pos = hitbox_y_pos
         self.font = font
         self.font_size = font_size
         self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
@@ -20,9 +22,11 @@ class Button():
         surface.blit(self.text, self.text_rect)
 
     def check_for_input(self, position):
+        left_click = pygame.mouse.get_pressed()[0]
         if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top,
-                                                                                          self.rect.bottom):
-            print("Button Press!")
+                                                                                          self.rect.bottom) and \
+                left_click:
+            return True
 
     def change_color(self, position, color_default="white", color_hovered="green"):
         if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top,
