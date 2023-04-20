@@ -3,7 +3,7 @@ import os
 import configparser
 from debug_log import Debug
 from tools import debug_log
-from gui.button_main_menu import *
+from Game_State import GameState
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -18,9 +18,10 @@ WIN = pygame.display.set_mode(SCREEN_SIZE)
 BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join('..', 'assets', 'background.jpg')), SCREEN_SIZE)
 pygame.display.set_caption(title)
 
+starting_screen = GameState()
+
 
 def draw_window():
-
     WIN.blit(BACKGROUND, (0, 0))
 
 
@@ -29,15 +30,12 @@ def main():
     run = True
     while run:
         clock.tick(FPS)
-        draw_window()
-        button_update()
+        starting_screen.main_menu()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                button_check_for_input()
-            button_change_color()
+
         debug_log()
         pygame.display.update()
 
@@ -46,4 +44,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
