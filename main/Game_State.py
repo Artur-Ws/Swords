@@ -8,6 +8,14 @@ from character import Character
 
 
 class GameState:
+    def __init__(self):
+        self.state = 'main_menu'
+
+    def state_manager(self):
+        if self.state == 'main_menu':
+            self.main_menu()
+        if self.state == 'fight_module':
+            self.fight_module()
 
     def main_menu(self):
         config = configparser.ConfigParser()
@@ -34,7 +42,6 @@ class GameState:
         button_option = Button(button_surface, 960, 450, 960, 450, "options")
         button_quit = Button(button_surface, 960, 600, 960, 600, "quit")
 
-        next_stage = GameState
 
         clock = pygame.time.Clock()
         run = True
@@ -54,7 +61,8 @@ class GameState:
                     run = False
 
                 if button_play.check_for_input(pygame.mouse.get_pos()):
-                    next_stage.fight_module(self)
+                    self.state = 'fight_module'
+                    self.state_manager()
 
             button_play.update()
             button_quit.update()
