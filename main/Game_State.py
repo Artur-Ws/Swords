@@ -32,8 +32,6 @@ class GameState:
                                             screen_size)
         pygame.display.set_caption(title)
 
-        def draw_window():
-            win.blit(background, (0, 0))
 
         button_surface = pygame.image.load(os.path.join('..', 'assets', 'button.png'))
         button_surface = pygame.transform.scale(button_surface, (300, 100))
@@ -42,12 +40,11 @@ class GameState:
         button_option = Button(button_surface, 960, 450, 960, 450, "options")
         button_quit = Button(button_surface, 960, 600, 960, 600, "quit")
 
-
         clock = pygame.time.Clock()
         run = True
         while run:
             clock.tick(fps)
-            draw_window()
+            win.blit(background, (0, 0))
 
             button_play.change_color(pygame.mouse.get_pos())
             button_quit.change_color(pygame.mouse.get_pos())
