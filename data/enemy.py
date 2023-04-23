@@ -32,7 +32,7 @@ class Enemy(Character, Base):
         return f"{self.id}. Enemy: {self.name}. Stats: STR-{self.strength}, DEF-{self.defense}, HP-{self.health_points}"
 
     def add_entry(self):
-        engine = create_engine("sqlite:///databases/enemies.db", echo=True)
+        engine = create_engine("sqlite:///databases/data.db", echo=True)
         Base.metadata.create_all(bind=engine)
         Session = sessionmaker(bind=engine)
         session = Session()
