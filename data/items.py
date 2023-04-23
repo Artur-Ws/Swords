@@ -30,7 +30,7 @@ class Item(Base):
         return f"{self.id}. Item: {self.name}, category: {self.category}, value: {self.value}"
 
     def add_entry(self):
-        engine = create_engine("sqlite:///databases/items.db", echo=True)
+        engine = create_engine("sqlite:///databases/data.db", echo=True)
         Base.metadata.create_all(bind=engine)
         Session = sessionmaker(bind=engine)
         session = Session()
