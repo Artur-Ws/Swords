@@ -5,6 +5,8 @@ from debug_log import Debug
 from tools import debug_log
 from gui.button import Button
 from character import Character
+from fight import Fight
+
 
 
 class GameState:
@@ -101,9 +103,12 @@ class GameState:
         player_image = Button(button_surface, 500, 500, 500, 500, "Player")
         enemy_image = Button(button_surface, 1400, 500, 1400, 500, "Enemy")
 
-        player = Character(500, 500, 'Player', 10, 5, 100)
-        enemy = Character(1400, 500, 'Player', 10, 5, 100)
+        player = Character(500, 500, 'Player', 25, 5, 110)
+        enemy = Character(1400, 500, 'Enemy', 10, 5, 100)
 
+
+        # importing fight module
+        fight = Fight()
 
 
         clock = pygame.time.Clock()
@@ -111,6 +116,8 @@ class GameState:
         while run:
             clock.tick(fps)
             draw_window()
+            Debug(f"Player hp: {player.health_points}")
+            Debug(f"Enemy hp: {enemy.health_points}")
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -120,9 +127,10 @@ class GameState:
                     next_stage.main_menu(self)
 
                 if attack_button.check_for_input(pygame.mouse.get_pos()):
-                    player.attack(enemy)
-                    if not player.alive or not enemy.alive:
-                        next_stage.main_menu(self)
+                    fight.fight_action(player, enemy)
+
+                    # if not player.alive or not enemy.alive:
+                    #     next_stage.main_menu(self)
 
             attack_button.change_color(pygame.mouse.get_pos())
             button_menu.change_color(pygame.mouse.get_pos())
