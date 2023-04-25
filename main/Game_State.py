@@ -48,9 +48,6 @@ class GameState:
 
         pygame.quit()
 
-    if __name__ == "__main_menu__":
-        main_menu()
-
     def fight_module(self):
         config = configparser.ConfigParser()
         config.read("config.ini")
