@@ -5,8 +5,8 @@ from debug_log import Debug
 from tools import debug_log
 from gui.button import Button
 from character import Character
+from gui.main_menu_gui import MainMenuGui
 from fight import Fight
-
 
 
 class GameState:
@@ -20,52 +20,28 @@ class GameState:
             self.fight_module()
 
     def main_menu(self):
-        config = configparser.ConfigParser()
-        config.read("config.ini")
-
-        screen_width = config.getint("General", "screen_width")
-        screen_height = config.getint("General", "screen_height")
-        fps = config.getint("General", "FPS")
-        title = config.get("General", "title")
-
-        screen_size = (screen_width, screen_height)
-        win = pygame.display.set_mode(screen_size)
-        background = pygame.transform.scale(pygame.image.load(os.path.join('..', 'assets', 'background.jpg')),
-                                            screen_size)
-        pygame.display.set_caption(title)
-
-
-        button_surface = pygame.image.load(os.path.join('..', 'assets', 'button.png'))
-        button_surface = pygame.transform.scale(button_surface, (300, 100))
-
-        button_play = Button(button_surface, 960, 300, 960, 300, "play")
-        button_option = Button(button_surface, 960, 450, 960, 450, "options")
-        button_quit = Button(button_surface, 960, 600, 960, 600, "quit")
-
-        clock = pygame.time.Clock()
+        menu = MainMenuGui()
         run = True
         while run:
-            clock.tick(fps)
-            win.blit(background, (0, 0))
-
-            button_play.change_color(pygame.mouse.get_pos())
-            button_quit.change_color(pygame.mouse.get_pos())
-            button_option.change_color(pygame.mouse.get_pos())
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     run = False
 
-                if button_quit.check_for_input(pygame.mouse.get_pos()):
-                    run = False
-
-                if button_play.check_for_input(pygame.mouse.get_pos()):
+                if menu.button_play.check_for_input(pygame.mouse.get_pos()):
                     self.state = 'fight_module'
                     self.state_manager()
 
-            button_play.update()
-            button_quit.update()
-            button_option.update()
+                if menu.button_options.check_for_input(pygame.mouse.get_pos()):
+                    pass
+
+                if menu.button_quit.check_for_input(pygame.mouse.get_pos()):
+                    run = False
+
+            menu.draw_menu_background()
+            menu.update()
+            menu.check_for_input()
+            menu.change_color()
 
             debug_log()
             pygame.display.update()
@@ -106,10 +82,8 @@ class GameState:
         player = Character(500, 500, 'Player', 25, 5, 110)
         enemy = Character(1400, 500, 'Enemy', 10, 5, 100)
 
-
         # importing fight module
         fight = Fight()
-
 
         clock = pygame.time.Clock()
         run = True
