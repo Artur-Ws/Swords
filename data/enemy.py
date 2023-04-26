@@ -1,26 +1,10 @@
-from data_manager import EnvironmentEnemy
-from sqlalchemy import create_engine, ForeignKey, Column, String, Integer
-from sqlalchemy.orm import sessionmaker, declarative_base, relationship
-
 from main.character import Character
 
-Base = declarative_base()
 
 
-class Enemy(Character, Base):
-    __tablename__ = "Enemies"
-    id = Column("ID", Integer, primary_key=True, autoincrement=True)
-    name = Column("name", String)
-    x = Column("x-pos", Integer)
-    y = Column("y-pos", Integer)
-    strength = Column("strength", Integer)
-    defense = Column("defense", Integer)
-    health_points = Column("health_points", Integer)
-    # Loot should be inserted as string with loot available for enemy, separated by ", ". Example: "ring, pelt"
-    loot = Column("Loot", String)
-    Environments = relationship("Environment", secondary=EnvironmentEnemy, back_populates="Enemies")
+class Enemy(Character):
 
-    def __init__(self, name, x, y, strength, defense, health_points, loot):
+    def __init__(self, name, x, y, strength, defense, health_points):
         super().__init__(x, y, name, strength, defense, health_points)
         self.name = name
         self.x = x
@@ -28,18 +12,9 @@ class Enemy(Character, Base):
         self.strength = strength
         self.defense = defense
         self.health_points = health_points
-        self.loot = loot
 
     def __repr__(self):
-        return f"{self.id}. Enemy: {self.name}. Stats: STR-{self.strength}, DEF-{self.defense}, HP-{self.health_points}"
-
-    def add_entry(self):
-        engine = create_engine("sqlite:///databases/data.db", echo=True)
-        Base.metadata.create_all(bind=engine)
-        Session = sessionmaker(bind=engine)
-        session = Session()
-        session.add(self)
-        session.commit()
+        return f"Enemy: {self.name}. Stats: STR-{self.strength}, DEF-{self.defense}, HP-{self.health_points}"
 
 
 # Enemy("Wolf", 100, 100, 10, 2, 30, "Pelt, Fang").add_entry()
