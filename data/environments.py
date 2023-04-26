@@ -1,6 +1,7 @@
+from data_manager import EnvironmentEnemy
 from sqlalchemy import create_engine, ForeignKey, Column, String, Integer
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 
 Base = declarative_base()
 
@@ -10,7 +11,7 @@ class Environment(Base):
     id = Column("ID", Integer, primary_key=True, autoincrement=True)
     name = Column("name", String)
     # Enemies should be inserted as string with enemies available in location, separated by ", ". Example: "Wolf, Fox"
-    # enemies = rela
+    enemies = relationship("Enemy", secondary=EnvironmentEnemy, back_populates="Environments")
 
     def __init__(self,name, enemies):
         self.name = name
