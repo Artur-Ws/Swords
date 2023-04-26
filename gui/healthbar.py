@@ -1,6 +1,5 @@
 import pygame
 
-
 class Bar():
 
     def __init__(self, x, y, hp, max_hp):
