@@ -9,6 +9,7 @@ class Bar():
         self.hp = hp
         self.max_hp = max_hp
 
+
     def draw(self, hp, screen, colour_of_background_bar, colour_of_front_bar):
         self.hp = hp
         ratio = self.hp / self.max_hp
