@@ -1,5 +1,6 @@
 import pygame
 
+
 class Bar():
 
     def __init__(self, x, y, hp, max_hp):
@@ -7,7 +8,6 @@ class Bar():
         self.y = y
         self.hp = hp
         self.max_hp = max_hp
-
 
     def draw(self, hp, screen, colour_of_background_bar, colour_of_front_bar):
         self.hp = hp
