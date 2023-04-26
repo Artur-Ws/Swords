@@ -7,6 +7,7 @@ class Character:
         self.strength = strength
         self.defense = defense
         self.health_points = health_points
+        self.health_points_max = health_points
         self.alive = True
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
