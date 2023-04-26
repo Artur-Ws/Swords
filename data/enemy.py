@@ -1,5 +1,6 @@
+from data_manager import EnvironmentEnemy
 from sqlalchemy import create_engine, ForeignKey, Column, String, Integer
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 
 from main.character import Character
 
@@ -17,6 +18,7 @@ class Enemy(Character, Base):
     health_points = Column("health_points", Integer)
     # Loot should be inserted as string with loot available for enemy, separated by ", ". Example: "ring, pelt"
     loot = Column("Loot", String)
+    Environments = relationship("Environment", secondary=EnvironmentEnemy, back_populates="Enemies")
 
     def __init__(self, name, x, y, strength, defense, health_points, loot):
         super().__init__(x, y, name, strength, defense, health_points)
