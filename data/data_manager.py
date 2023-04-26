@@ -32,14 +32,6 @@ class EnemyDB(Enemy, Base):
         self.defense = defense
         self.health_points = health_points
 
-    # def add_entry(self):
-    #     engine = create_engine("sqlite:///databases/data.db", echo=True)
-    #     Base.metadata.create_all(bind=engine)
-    #     Session = sessionmaker(bind=engine)
-    #     session = Session()
-    #     session.add(self)
-    #     session.commit()
-
 
 class EnvironmentDB(Base):
     __tablename__ = "Environments"
@@ -68,9 +60,23 @@ def add_objects(*args):
     session.commit()
 
 
-def link_objects(to_be_linked, target_category):
-    target_category.append(to_be_linked)
+def link_environment_enemy(environment_name: str, enemy_name: str):
+
+    environment = session.query(EnvironmentDB).filter(EnvironmentDB.name == environment_name).first()
+    enemy = session.query(EnemyDB).filter(EnemyDB.name == enemy_name).first()
+    environment.enemies.append(enemy)
     session.commit()
+
+
+def get_all_related_enemies(environment_name):
+    environment = session.query(EnvironmentDB).filter(EnvironmentDB.name == environment_name).first()
+    return environment.enemies
+
+
+def get_all_related_environments(enemy_name):
+    enemy = session.query(EnemyDB).filter(EnemyDB.name == enemy_name).first()
+    return enemy.environments
+# def get_all_related_items(enemy_name)
 
 
 engine = create_engine("sqlite:///databases/data.db", echo=True)
@@ -83,7 +89,8 @@ session = Session()
 
 '''
 
-enemy1 = EnemyDB("Wolf", 100, 100, 10, 2, 30)
-env1 = EnvironmentDB("Forrest")
+# enemy1 = EnemyDB("Wolf", 100, 100, 10, 2, 30)
+# env1 = EnvironmentDB("Forrest")
 
-add_objects(enemy1, env1)
+# link_environment_enemy("Forrest", "Wolf")
+print(get_all_related_enemies("Forrest"))
