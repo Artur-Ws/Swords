@@ -137,13 +137,10 @@ class GameState:
                     next_stage.main_menu(self)
 
                 if attack_button.check_for_input(pygame.mouse.get_pos()):
-
                     fight.fight_action(player, enemy)
-
-
-
                     # if not player.alive or not enemy.alive:
                     #     next_stage.main_menu(self)
+
             player_healthbar.draw(player.health_points, win, red, green)
             enemy_healthbar.draw(enemy.health_points, win, red, green)
             attack_button.change_color(pygame.mouse.get_pos())
