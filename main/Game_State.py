@@ -6,6 +6,7 @@ from tools import debug_log
 from gui.button import Button
 from character import Character
 from fight import Fight
+from gui.healthbar import Bar
 
 
 
@@ -106,9 +107,15 @@ class GameState:
         player = Character(500, 500, 'Player', 25, 5, 110)
         enemy = Character(1400, 500, 'Enemy', 10, 5, 100)
 
+        player_healthbar = Bar(100, 500, player.health_points, player.health_points_max)
+        enemy_healthbar = Bar(550, 500, enemy.health_points, enemy.health_points_max)
 
         # importing fight module
         fight = Fight()
+
+        # importing healthbar
+        red = (255, 0, 0)
+        green = (0, 255, 0)
 
 
         clock = pygame.time.Clock()
@@ -128,6 +135,9 @@ class GameState:
 
                 if attack_button.check_for_input(pygame.mouse.get_pos()):
                     fight.fight_action(player, enemy)
+
+         #player_healthbar.draw(player.health_points, win, red, green)
+         #enemy_healthbar.draw(player.health_points, win, (255, 0, 0), (0, 255, 0))
 
                     # if not player.alive or not enemy.alive:
                     #     next_stage.main_menu(self)
