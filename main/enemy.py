@@ -1,9 +1,7 @@
 from main.character import Character
 
 
-
 class Enemy(Character):
-
     def __init__(self, name, x, y, strength, defense, health_points):
         super().__init__(x, y, name, strength, defense, health_points)
         self.name = name
