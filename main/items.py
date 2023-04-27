@@ -10,4 +10,4 @@ class Item:
         self.value = value
 
     def __repr__(self):
-        return f"Item: {self.name}, category: {self.category}, value: {self.value}"
+        return f"<{self.name}, category: {self.category}, value: {self.value}>"
