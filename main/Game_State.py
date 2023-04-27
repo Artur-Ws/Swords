@@ -49,10 +49,9 @@ class GameState:
     def fight_module(self):
         fight_panel = FightModuleGui()
         fight = Fight()
-        run = True
-
         player = Character(500, 500, 'Player', 25, 5, 110)
         enemy = Character(1400, 500, 'Enemy', 10, 5, 100)
+        run = True
 
         while run:
             Debug(f"Player hp: {player.health_points}")
