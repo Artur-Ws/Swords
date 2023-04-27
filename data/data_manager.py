@@ -32,7 +32,7 @@ class EnemyDB(Enemy, Base):
     environments = relationship("EnvironmentDB", secondary=EnvironmentEnemy.__tablename__, back_populates="enemies")
     items = relationship("ItemDB", secondary=ItemEnemy.__tablename__, back_populates="enemies")
 
-    def __init__(self, name, x, y, strength, defense, health_points):
+    def __init__(self, x, y, name, strength, defense, health_points):
         super().__init__(x, y, name, strength, defense, health_points)
         self.name = name
         self.x = x
@@ -71,7 +71,6 @@ class EnvironmentDB(Base):
     __tablename__ = "Environments"
     id = Column("id", Integer, primary_key=True, autoincrement=True)
     name = Column("name", String)
-    # Enemies should be inserted as string with enemies available in location, separated by ", ". Example: "Wolf, Fox"
     enemies = relationship("EnemyDB", secondary=EnvironmentEnemy.__tablename__, back_populates="environments")
 
     def __init__(self, name):
@@ -100,17 +99,17 @@ def link_item_enemy(item_name: str, enemy_name: str):
     session.commit()
 
 
-def get_all_related_enemies(environment_name):
+def get_all_related_enemies(environment_name: str):
     environment = session.query(EnvironmentDB).filter(EnvironmentDB.name == environment_name).first()
     return environment.enemies
 
 
-def get_all_related_environments(enemy_name):
+def get_all_related_environments(enemy_name: str):
     enemy = session.query(EnemyDB).filter(EnemyDB.name == enemy_name).first()
     return enemy.environments
 
 
-def get_all_related_items(enemy_name):
+def get_all_related_items(enemy_name: str):
     enemy = session.query(EnemyDB).filter(EnemyDB.name == enemy_name).first()
     return enemy.items
 
@@ -119,22 +118,3 @@ engine = create_engine("sqlite:///databases/data.db", echo=True)
 Base.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
-'''
-############################################## Don't touch anything above ##############################################
-
-
-'''
-
-# enemy1 = EnemyDB("Wolf", 100, 100, 10, 2, 30)
-# # env1 = EnvironmentDB("Forrest")
-# item1 = ItemDB("Wolf Fur", 0, "Neutral", 0, 0, 0, 0, 15)
-# item2 = ItemDB("Wolf Fang", 0, "Neutral", 0, 0, 0, 0, 5)
-#
-# # # link_environment_enemy("Forrest", "Wolf")
-# # # print(get_all_related_enemies("Forrest"))
-# #
-# # add_objects(item1, item2)
-#
-# link_item_enemy("Wolf Fur", "Wolf")
-# link_item_enemy("Wolf Fang", "Wolf")
-print(get_all_related_items("Wolf"))
