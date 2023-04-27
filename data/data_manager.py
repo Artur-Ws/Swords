@@ -93,6 +93,13 @@ def link_environment_enemy(environment_name: str, enemy_name: str):
     session.commit()
 
 
+def link_item_enemy(item_name: str, enemy_name: str):
+    item = session.query(ItemDB).filter(ItemDB.name == item_name).first()
+    enemy = session.query(EnemyDB).filter(EnemyDB.name == enemy_name).first()
+    enemy.items.append(item)
+    session.commit()
+
+
 def get_all_related_enemies(environment_name):
     environment = session.query(EnvironmentDB).filter(EnvironmentDB.name == environment_name).first()
     return environment.enemies
@@ -123,7 +130,11 @@ session = Session()
 # item1 = ItemDB("Wolf Fur", 0, "Neutral", 0, 0, 0, 0, 15)
 # item2 = ItemDB("Wolf Fang", 0, "Neutral", 0, 0, 0, 0, 5)
 #
-# # link_environment_enemy("Forrest", "Wolf")
-# # print(get_all_related_enemies("Forrest"))
+# # # link_environment_enemy("Forrest", "Wolf")
+# # # print(get_all_related_enemies("Forrest"))
+# #
+# # add_objects(item1, item2)
 #
-# add_objects(item1, item2)
+# link_item_enemy("Wolf Fur", "Wolf")
+# link_item_enemy("Wolf Fang", "Wolf")
+print(get_all_related_items("Wolf"))
