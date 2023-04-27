@@ -1,11 +1,9 @@
 import pygame
-import os
-import configparser
 from debug_log import Debug
 from tools import debug_log
-from gui.button import Button
 from character import Character
 from gui.main_menu_gui import MainMenuGui
+from gui.fight_module_gui import FightModuleGui
 from fight import Fight
 
 
@@ -49,66 +47,33 @@ class GameState:
         pygame.quit()
 
     def fight_module(self):
-        config = configparser.ConfigParser()
-        config.read("config.ini")
-
-        screen_width = config.getint("General", "screen_width")
-        screen_height = config.getint("General", "screen_height")
-        fps = config.getint("General", "FPS")
-
-        screen_size = (screen_width, screen_height)
-        win = pygame.display.set_mode(screen_size)
-        background = pygame.transform.scale(pygame.image.load(os.path.join('..', 'assets', 'background.jpg')),
-                                            screen_size)
-
-        next_stage = GameState
-
-        def draw_window():
-            win.blit(background, (0, 0))
-
-        # buttons
-        button_surface = pygame.image.load(os.path.join('..', 'assets', 'button.png'))
-        button_surface = pygame.transform.scale(button_surface, (300, 100))
-        button_menu = Button(button_surface, screen_width / 2, 700, 700, 500, "Menu")
-
-        attack_button = Button(button_surface, screen_width / 2, screen_height / 2, 700, 500, "Attack")
-
-        player_image = Button(button_surface, 500, 500, 500, 500, "Player")
-        enemy_image = Button(button_surface, 1400, 500, 1400, 500, "Enemy")
+        fight_panel = FightModuleGui()
+        fight = Fight()
+        run = True
 
         player = Character(500, 500, 'Player', 25, 5, 110)
         enemy = Character(1400, 500, 'Enemy', 10, 5, 100)
 
-        # importing fight module
-        fight = Fight()
-
-        clock = pygame.time.Clock()
-        run = True
         while run:
-            clock.tick(fps)
-            draw_window()
             Debug(f"Player hp: {player.health_points}")
             Debug(f"Enemy hp: {enemy.health_points}")
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                    next_stage.main_menu(self)
+                    run = False
 
-                if button_menu.check_for_input(pygame.mouse.get_pos()):
-                    next_stage.main_menu(self)
+                if fight_panel.button_menu.check_for_input(pygame.mouse.get_pos()):
+                    self.state = 'main_menu'
+                    self.state_manager()
 
-                if attack_button.check_for_input(pygame.mouse.get_pos()):
+                if fight_panel.attack_button.check_for_input(pygame.mouse.get_pos()):
                     fight.fight_action(player, enemy)
 
-                    # if not player.alive or not enemy.alive:
-                    #     next_stage.main_menu(self)
+            fight_panel.draw_fight_module_background()
+            fight_panel.update()
+            fight_panel.check_for_input()
+            fight_panel.change_color()
 
-            attack_button.change_color(pygame.mouse.get_pos())
-            button_menu.change_color(pygame.mouse.get_pos())
-            attack_button.update()
-            enemy_image.update()
-            player_image.update()
-            button_menu.update()
             debug_log()
             pygame.display.update()
 
@@ -116,5 +81,3 @@ class GameState:
 
     if __name__ == "__fight_module__":
         fight_module()
-
-
