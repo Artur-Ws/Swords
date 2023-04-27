@@ -1,21 +1,4 @@
-from sqlalchemy import create_engine, ForeignKey, Column, String, Integer
-from sqlalchemy.orm import sessionmaker, declarative_base
-
-Base = declarative_base()
-
-
-class Item(Base):
-    __tablename__ = "Items"
-    id = Column("ID", Integer, primary_key=True, autoincrement=True)
-    name = Column("name", String)
-    level = Column("level", Integer)
-    category = Column("category", String)
-    armor = Column("armor", Integer)
-    damage = Column("damage", Integer)
-    health = Column("health", Integer)
-    mana = Column("mana", Integer)
-    value = Column("value", Integer)
-
+class Item:
     def __init__(self, name, level, category, armor, damage, health, mana, value):
         self.name = name
         self.level = level
@@ -27,15 +10,4 @@ class Item(Base):
         self.value = value
 
     def __repr__(self):
-        return f"{self.id}. Item: {self.name}, category: {self.category}, value: {self.value}"
-
-    def add_entry(self):
-        engine = create_engine("sqlite:///databases/data.db", echo=True)
-        Base.metadata.create_all(bind=engine)
-        Session = sessionmaker(bind=engine)
-        session = Session()
-        session.add(self)
-        session.commit()
-
-
-# Item("Wolf Fur", 0, "Neutral", 0, 0, 0, 0, 10).add_entry()
+        return f"Item: {self.name}, category: {self.category}, value: {self.value}"
