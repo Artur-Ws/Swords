@@ -20,13 +20,10 @@ class Player(Character):
             print("Backpack is full")
 
     def remove_from_backpack(self, item):
-        is_item = False
-        for i in self.backpack:
-            if i == item:
-                self.backpack.remove(item)
-                is_item = True
-        print(f"{item} removed from backpack")
-        if not is_item:
+        if item in self.backpack:
+            self.backpack.remove(item)
+            print(f"{item} removed from backpack")
+        else:
             print(f"{item} not found in backpack")
 
     def expand_backpack(self):
