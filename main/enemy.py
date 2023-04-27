@@ -12,7 +12,7 @@ class Enemy(Character):
         self.health_points = health_points
 
     def __repr__(self):
-        return f"Enemy: {self.name}. Stats: STR-{self.strength}, DEF-{self.defense}, HP-{self.health_points}"
+        return f"<{self.name}. Stats: STR-{self.strength}, DEF-{self.defense}, HP-{self.health_points}>"
 
 
 # Enemy("Wolf", 100, 100, 10, 2, 30, "Pelt, Fang").add_entry()
