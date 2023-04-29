@@ -1,6 +1,7 @@
 import pygame
 import os
 from gui.button import Button
+from gui.bar import Bar
 import configparser
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -22,6 +23,10 @@ class FightModuleGui:
         self.attack_button = Button(self.button_surface, self.screen_width / 2, self.screen_height / 2, 700, 500, "Attack")
         self.player_image = Button(self.button_surface, 500, 500, 500, 500, "Player")
         self.enemy_image = Button(self.button_surface, 1400, 500, 1400, 500, "Enemy")
+        self.player_healthbar = Bar(500, 650, pygame.Color(config.get("General", "red")),
+                                    pygame.Color(config.get("General", "green")))
+        self.enemy_healthbar = Bar(1400, 650, pygame.Color(config.get("General", "red")),
+                                   pygame.Color(config.get("General", "green")))
 
     def draw_fight_module_background(self):
         self.win.blit(self.background, (0, 0))
