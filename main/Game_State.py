@@ -56,6 +56,7 @@ class GameState:
         while run:
             Debug(f"Player hp: {player.health_points}")
             Debug(f"Enemy hp: {enemy.health_points}")
+            Debug(pygame.mouse.get_pos())
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -72,7 +73,8 @@ class GameState:
             fight_panel.update()
             fight_panel.check_for_input()
             fight_panel.change_color()
-
+            fight_panel.player_healthbar.draw(player.health_points, player.health_points_max)
+            fight_panel.enemy_healthbar.draw(enemy.health_points, enemy.health_points_max)
             debug_log()
             pygame.display.update()
 
