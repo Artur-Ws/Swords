@@ -11,3 +11,15 @@
 - complete project modules
 - specific elements from project modules
 
+Example:
+```
+import os
+from math import atan
+
+import pygame
+from sqlalchemy import create_engine
+
+import gui
+from data.data_manager import EnvironmentDB
+```
+---
