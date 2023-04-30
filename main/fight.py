@@ -12,3 +12,8 @@ class Fight:
             player.attack(target)
             if target.alive == True:
                 target.attack(player)
+
+    def rest_action(self, player: Character, target: Character):
+        if player.alive == True and target.alive == True:
+            player.rest()
+            target.attack(player)
