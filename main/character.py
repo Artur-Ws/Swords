@@ -9,13 +9,13 @@ class Character:
         self.health_points = health_points
         self.health_points_max = health_points
         self.alive = True
+        self.stamina = 100
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
 
     def attack(self, target: 'Character'):
         damage = max(0, self.strength - target.defense)
-
         target.get_damage(damage)
         print(f"{self.name} attacks {target.name} for {damage} damage!")
 
@@ -37,3 +37,15 @@ class Character:
     def draw(self):
         surface = pygame.display.get_surface()
         surface.blit(self.image, self.rect)
+
+    def stamina_check(self, lowest_stamina_value, regen_stamina_value):
+        if self.stamina > lowest_stamina_value:
+            pass
+        else:
+            self.rest(regen_stamina_value)
+
+    def stamina_use(self, stamina_value):
+        self.stamina -= stamina_value
+
+    def rest(self, regen_stamina_value):
+        self.stamina += regen_stamina_value
