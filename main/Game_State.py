@@ -139,7 +139,9 @@ class GameState:
 
         while run:
             Debug(f"Player hp: {player.health_points}")
+            Debug(f"Player stamina: {player.stamina}")
             Debug(f"Enemy hp: {enemy.health_points}")
+            Debug(f"Enemy stamina: {enemy.stamina}")
             Debug(pygame.mouse.get_pos())
 
             for event in pygame.event.get():
@@ -155,10 +157,14 @@ class GameState:
 
             fight_panel.draw_fight_module_background()
             fight_panel.update()
-            fight_panel.check_for_input()
-            fight_panel.change_color()
+            fight_panel.check_for_input(player)
+            fight_panel.change_color(player)
+
             fight_panel.player_healthbar.draw(player.health_points, player.health_points_max)
             fight_panel.enemy_healthbar.draw(enemy.health_points, enemy.health_points_max)
+            fight_panel.player_staminabar.draw(player.stamina, player.stamina_max)
+            fight_panel.enemy_staminabar.draw(enemy.stamina,enemy.stamina_max)
+
             debug_log()
             pygame.display.update()
 
