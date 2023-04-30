@@ -3,6 +3,7 @@ import os
 from gui.button import Button
 from gui.bar import Bar
 import configparser
+from main.character import Character
 config = configparser.ConfigParser()
 config.read("config.ini")
 
@@ -37,10 +38,16 @@ class FightModuleGui:
         self.player_image.update()
         self.enemy_image.update()
 
-    def check_for_input(self):
+    def check_for_input(self, player: Character):
         self.button_menu.check_for_input(pygame.mouse.get_pos())
-        self.attack_button.check_for_input(pygame.mouse.get_pos())
+        if player.stamina > player.lowest_stamina_value:
+            self.attack_button.check_for_input(pygame.mouse.get_pos())
+        else:
+            pass
 
-    def change_color(self):
+    def change_color(self, player: Character):
         self.button_menu.change_color(pygame.mouse.get_pos())
-        self.attack_button.change_color(pygame.mouse.get_pos())
+        if player.stamina > player.lowest_stamina_value:
+            self.attack_button.change_color(pygame.mouse.get_pos())
+        else:
+            pass
