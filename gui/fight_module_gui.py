@@ -3,7 +3,7 @@ import os
 from gui.button import Button
 from gui.bar import Bar
 import configparser
-from main.character import Character
+#from main.character import Character
 config = configparser.ConfigParser()
 config.read("config.ini")
 
@@ -22,6 +22,7 @@ class FightModuleGui:
 
         self.button_menu = Button(self.button_surface, self.screen_width / 2, 700, 700, 500, "Menu")
         self.attack_button = Button(self.button_surface, self.screen_width / 2, self.screen_height / 2, 700, 500, "Attack")
+        self.rest_button = Button(self.button_surface,self.screen_width / 2, self.screen_height / 2.5, 700, 500, "Rest" )
         self.player_image = Button(self.button_surface, 500, 500, 500, 500, "Player")
         self.enemy_image = Button(self.button_surface, 1400, 500, 1400, 500, "Enemy")
         self.player_healthbar = Bar(350, 650, pygame.Color(config.get("Colors", "red")),
@@ -37,17 +38,29 @@ class FightModuleGui:
         self.attack_button.update()
         self.player_image.update()
         self.enemy_image.update()
+        self.rest_button.update()
 
-    def check_for_input(self, player: Character):
-        self.button_menu.check_for_input(pygame.mouse.get_pos())
-        if player.stamina > player.lowest_stamina_value:
+    def check_for_input(self, stamina, lowest_stamina_value):
+        if self.stamina_available_check(stamina, lowest_stamina_value):
+            self.button_menu.check_for_input(pygame.mouse.get_pos())
             self.attack_button.check_for_input(pygame.mouse.get_pos())
+            self.rest_button.check_for_input(pygame.mouse.get_pos())
         else:
-            pass
+            self.button_menu.check_for_input(pygame.mouse.get_pos())
+            self.rest_button.check_for_input(pygame.mouse.get_pos())
 
-    def change_color(self, player: Character):
-        self.button_menu.change_color(pygame.mouse.get_pos())
-        if player.stamina > player.lowest_stamina_value:
+    def change_color(self, stamina, lowest_stamina_value):
+        if self.stamina_available_check(stamina, lowest_stamina_value):
+            self.button_menu.change_color(pygame.mouse.get_pos())
             self.attack_button.change_color(pygame.mouse.get_pos())
+            self.rest_button.change_color(pygame.mouse.get_pos())
         else:
-            pass
+            self.button_menu.change_color(pygame.mouse.get_pos())
+            self.attack_button.change_color(pygame.mouse.get_pos(), "black", "black")
+            self.rest_button.change_color(pygame.mouse.get_pos())
+
+    def stamina_available_check(self, stamina, lowest_stamina_value):
+        if stamina > lowest_stamina_value:
+            return True
+        else:
+            return False
