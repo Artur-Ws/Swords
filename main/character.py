@@ -1,4 +1,5 @@
 import pygame
+from debug_log import Debug
 
 
 class Character:
@@ -17,7 +18,7 @@ class Character:
         # self.rect.center = (x, y)
 
     def attack(self, target: 'Character'):
-        if self.stamina_check() == True:
+        if self.stamina_check():
             damage = max(0, self.strength - target.defense)
             target.get_damage(damage)
             #think about reference of stamina use value depents on type of action, right now it's hardcoded.
@@ -25,7 +26,7 @@ class Character:
             print(f"{self.name} attacks {target.name} for {damage} damage! Your stamina lvl: {self.stamina}")
         else:
             self.rest()
-            print(f"You're exhausted. Get some sleep. Current stamina lvl: {self.stamina}")
+            Debug(f"You're exhausted. Get some sleep. Current stamina lvl: {self.stamina}", 2)
 
     def get_damage(self, damage):
         self.health_points -= damage
