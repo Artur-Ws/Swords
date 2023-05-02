@@ -83,7 +83,7 @@ class GameState:
             fight_panel.player_healthbar.draw(player.health_points, player.health_points_max)
             fight_panel.enemy_healthbar.draw(enemy.health_points, enemy.health_points_max)
             fight_panel.player_staminabar.draw(player.stamina, player.stamina_max)
-            fight_panel.enemy_staminabar.draw(enemy.stamina,enemy.stamina_max)
+            fight_panel.enemy_staminabar.draw(enemy.stamina, enemy.stamina_max)
 
             debug_log()
             pygame.display.update()
