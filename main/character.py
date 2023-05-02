@@ -11,6 +11,7 @@ class Character:
         self.health_points_max = health_points
         self.alive = True
         self.stamina = 100
+        self.stamina_max = 100
         self.lowest_stamina_value = 10
         self.regen_stamina_value = 15
         # self.image = pygame.image.load()
