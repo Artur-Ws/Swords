@@ -58,4 +58,7 @@ class Character:
         self.stamina -= stamina_value
 
     def rest(self):
-        self.stamina += self.regen_stamina_value
+        if self.stamina + self.regen_stamina_value <= self.stamina_max:
+            self.stamina += self.regen_stamina_value
+        else:
+            self.stamina = self.stamina_max
