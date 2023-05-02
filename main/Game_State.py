@@ -162,7 +162,7 @@ class GameState:
 
             fight_panel.draw_fight_module_background()
             fight_panel.update()
-            fight_panel.check_for_input(player.stamina, player.lowest_stamina_value)
+            fight_panel.check_for_input()
             fight_panel.change_color(player.stamina, player.lowest_stamina_value, player.stamina_max)
 
             fight_panel.player_staminabar.draw(player.stamina, player.stamina_max)
