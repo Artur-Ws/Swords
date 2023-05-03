@@ -152,21 +152,21 @@ class GameState:
                     self.state = 'main_menu'
                     self.state_manager()
 
-                if fight_panel.stamina_available_check(player.stamina, player.lowest_stamina_value):
+                if fight_panel.stamina_available_check(player):
                         if fight_panel.attack_button.check_for_input(pygame.mouse.get_pos()):
                             fight.fight_action(player, enemy)
 
-                if fight_panel.stamina_max_lvl_check(player.stamina, player.stamina_max) == False:
+                if not fight_panel.stamina_max_lvl_check(player):
                     if fight_panel.rest_button.check_for_input(pygame.mouse.get_pos()):
                         fight.rest_action(player, enemy)
 
             fight_panel.draw_fight_module_background()
             fight_panel.update()
             fight_panel.check_for_input()
-            fight_panel.change_color(player.stamina, player.lowest_stamina_value, player.stamina_max)
+            fight_panel.change_color(player)
 
             fight_panel.player_staminabar.draw(player.stamina, player.stamina_max)
-            fight_panel.enemy_staminabar.draw(enemy.stamina, enemy.stamina_max)
+            fight_panel.enemy_staminabar.draw(enemy.stamina,enemy.stamina_max)
 
             debug_log()
             pygame.display.update()
