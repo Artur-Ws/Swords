@@ -27,6 +27,8 @@ class Character:
         self.light_attack_multiplier: float = config.getfloat("FightSettings", "light_attack_multiplier")
         self.medium_attack_multiplier: float = config.getfloat("FightSettings", "medium_attack_multiplier")
         self.strong_attack_multiplier: float = config.getfloat("FightSettings", "strong_attack_multiplier")
+        self.armor_points: int = 0
+        self.armor_points_max: int= 0
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
