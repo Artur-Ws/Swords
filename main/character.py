@@ -1,5 +1,6 @@
 import configparser
 import pygame
+from random import randint
 from debug_log import Debug
 from random import randint
 
@@ -89,3 +90,43 @@ class Character:
     def select_chance_draw(self, first_number_of_draw=1, last_number_of_draw=1000):
         chance_draw = randint(first_number_of_draw, last_number_of_draw)
         return chance_draw
+
+    def select_random_chance(self, first_number_of_draw = 1, last_number_of_draw = 1000):
+        random_chance = randint(first_number_of_draw, last_number_of_draw)
+        return random_chance
+
+    def defense_attack_difference(self, opponent: "Character"):
+        difference = self.defense - opponent.attack
+        return difference
+
+    def block(self):
+        random_chance = self.select_random_chance()
+
+
+        if self.agility >= dodge_luck:
+            print(f"{self.name} DODGE!")
+            return True
+
+        else:
+            print(f"{self.name} Not dodged")
+            return False
+
+    def select_random_chance(self, first_number_of_draw = 1, last_number_of_draw = 1000):
+        random_chance = randint(first_number_of_draw, last_number_of_draw)
+        return random_chance
+
+    def defense_attack_difference(self, opponent: "Character"):
+        difference = self.defense - opponent.attack
+        return difference
+
+    def block(self):
+        random_chance = self.select_random_chance()
+
+
+        if self.agility >= dodge_luck:
+            print(f"{self.name} DODGE!")
+            return True
+
+        else:
+            print(f"{self.name} Not dodged")
+            return False
