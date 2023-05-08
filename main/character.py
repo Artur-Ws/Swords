@@ -2,18 +2,18 @@ import configparser
 import pygame
 from random import randint
 from debug_log import Debug
-from random import randint
 
 config = configparser.ConfigParser()
 config.read("config.ini")
 
 
 class Character:
-    def __init__(self, x, y, name, strength, defense, health_points):
+    def __init__(self, x, y, name, strength, defense, health_points, attack):
         self.name = name
         self.strength = strength
         self.defense = defense
         self.health_points = health_points
+        self.attack = attack
         self.health_points_max = health_points
         self.alive = True
         self.stamina = 100
@@ -23,8 +23,6 @@ class Character:
         self.light_attack_multiplier = config.getfloat("FightSettings", "light_attack_multiplier")
         self.medium_attack_multiplier = config.getfloat("FightSettings", "medium_attack_multiplier")
         self.heavy_attack_multiplier = config.getfloat("FightSettings", "heavy_attack_multiplier")
-
-
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
@@ -91,42 +89,18 @@ class Character:
         chance_draw = randint(first_number_of_draw, last_number_of_draw)
         return chance_draw
 
-    def select_random_chance(self, first_number_of_draw = 1, last_number_of_draw = 1000):
-        random_chance = randint(first_number_of_draw, last_number_of_draw)
-        return random_chance
-
     def defense_attack_difference(self, opponent: "Character"):
-        difference = self.defense - opponent.attack
-        return difference
+        difference_of_defense_attack = self.defense - opponent.attack
+        return difference_of_defense_attack
 
-    def block(self):
-        random_chance = self.select_random_chance()
+    def function_of_block_chance(self, opponent: "Character"):
+        block_chance = config.getint("FightSettings", "equal_block_attack_attack_chance") + \
+                       self.defense_attack_difference(opponent) * config.getint("FightSettings",
+                                                                                "one_point_difference_of_block_attack")
+        return block_chance
 
-
-        if self.agility >= dodge_luck:
-            print(f"{self.name} DODGE!")
+    def block(self, opponent: "Character"):
+        if self.select_chance_draw() < self.function_of_block_chance(opponent):
             return True
-
         else:
-            print(f"{self.name} Not dodged")
-            return False
-
-    def select_random_chance(self, first_number_of_draw = 1, last_number_of_draw = 1000):
-        random_chance = randint(first_number_of_draw, last_number_of_draw)
-        return random_chance
-
-    def defense_attack_difference(self, opponent: "Character"):
-        difference = self.defense - opponent.attack
-        return difference
-
-    def block(self):
-        random_chance = self.select_random_chance()
-
-
-        if self.agility >= dodge_luck:
-            print(f"{self.name} DODGE!")
-            return True
-
-        else:
-            print(f"{self.name} Not dodged")
             return False
