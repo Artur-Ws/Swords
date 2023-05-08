@@ -1,6 +1,10 @@
+import configparser
 import pygame
 from random import randint
 from debug_log import Debug
+
+config = configparser.ConfigParser()
+config.read("config.ini")
 
 
 class Character:
@@ -9,13 +13,14 @@ class Character:
         self.strength = strength
         self.defense = defense
         self.health_points = health_points
+        self.attack = attack
         self.health_points_max = health_points
         self.alive = True
         self.stamina = 100
         self.stamina_max = 100
         self.lowest_stamina_value = 10
         self.regen_stamina_value = 15
-        self.attack = attack
+
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
@@ -65,22 +70,22 @@ class Character:
         else:
             self.stamina = self.stamina_max
 
-    def select_random_chance(self, first_number_of_draw = 1, last_number_of_draw = 1000):
-        random_chance = randint(first_number_of_draw, last_number_of_draw)
-        return random_chance
+    def select_chance_draw(self, first_number_of_draw = 1, last_number_of_draw = 1000):
+        chance_draw = randint(first_number_of_draw, last_number_of_draw)
+        return chance_draw
 
     def defense_attack_difference(self, opponent: "Character"):
-        difference = self.defense - opponent.attack
-        return difference
+        difference_of_defense_attack = self.defense - opponent.attack
+        return difference_of_defense_attack
 
-    def block(self):
-        random_chance = self.select_random_chance()
+    def function_of_block_chance(self, opponent: "Character"):
+        block_chance = config.getint("FightSettings", "equal_block_attack_attack_chance") + \
+                       self.defense_attack_difference(opponent) * config.getint("FightSettings",
+                                                                                "one_point_difference_of_block_attack")
+        return block_chance
 
-
-        if self.agility >= dodge_luck:
-            print(f"{self.name} DODGE!")
+    def block(self, opponent: "Character"):
+        if self.select_chance_draw() < self.function_of_block_chance(opponent):
             return True
-
         else:
-            print(f"{self.name} Not dodged")
             return False
