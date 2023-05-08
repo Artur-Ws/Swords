@@ -1,9 +1,10 @@
 import pygame
+from random import randint
 from debug_log import Debug
 
 
 class Character:
-    def __init__(self, x, y, name, strength, defense, health_points):
+    def __init__(self, x, y, name, strength, defense, health_points, attack):
         self.name = name
         self.strength = strength
         self.defense = defense
@@ -14,6 +15,7 @@ class Character:
         self.stamina_max = 100
         self.lowest_stamina_value = 10
         self.regen_stamina_value = 15
+        self.attack = attack
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
@@ -62,3 +64,23 @@ class Character:
             self.stamina += self.regen_stamina_value
         else:
             self.stamina = self.stamina_max
+
+    def select_random_chance(self, first_number_of_draw = 1, last_number_of_draw = 1000):
+        random_chance = randint(first_number_of_draw, last_number_of_draw)
+        return random_chance
+
+    def defense_attack_difference(self, opponent: "Character"):
+        difference = self.defense - opponent.attack
+        return difference
+
+    def block(self):
+        random_chance = self.select_random_chance()
+
+
+        if self.agility >= dodge_luck:
+            print(f"{self.name} DODGE!")
+            return True
+
+        else:
+            print(f"{self.name} Not dodged")
+            return False
