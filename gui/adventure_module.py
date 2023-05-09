@@ -12,7 +12,8 @@ class AdventureModuleGui:
         self.screen_height = config.getint("General", "screen_height")
         self.screen_size = (self.screen_width, self.screen_height)
         self.win = pygame.display.set_mode(self.screen_size)
-        self.background = pygame.transform.scale(pygame.image.load(os.path.join('..', 'assets', 'adventure_background.png')),
+        self.background = pygame.transform.scale(pygame.image.load(os.path.join('..', 'assets',
+                                                                                'adventure_background.png')),
                                                  self.screen_size)
 
         self.button_surface = pygame.image.load(os.path.join('..', 'assets', 'button.png'))

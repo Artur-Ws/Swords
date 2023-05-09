@@ -69,7 +69,7 @@ class GameState:
                     self.state = 'main_menu'
                     self.state_manager()
 
-                if activity_panel.button_smithy.check_for_input(pygame.mouse.get_pos()):
+                if activity_panel.button_weaponsmith.check_for_input(pygame.mouse.get_pos()):
                     pass
 
                 if activity_panel.button_temple.check_for_input(pygame.mouse.get_pos()):
