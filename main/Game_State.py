@@ -44,7 +44,6 @@ class GameState:
 
             menu.draw_menu_background()
             menu.update()
-            menu.check_for_input()
             menu.change_color()
 
             debug_log()
@@ -80,7 +79,6 @@ class GameState:
 
             activity_panel.draw_fight_module_background()
             activity_panel.update()
-            activity_panel.check_for_input()
             activity_panel.change_color()
 
             debug_log()
@@ -123,7 +121,6 @@ class GameState:
 
             adventure_panel.draw_fight_module_background()
             adventure_panel.update()
-            adventure_panel.check_for_input()
             adventure_panel.change_color()
 
             debug_log()
