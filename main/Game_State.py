@@ -5,7 +5,7 @@ from character import Character
 from gui.main_menu_gui import MainMenuGui
 from gui.fight_module_gui import FightModuleGui
 from fight import Fight
-from gui.activity_module import ActivityModuleGui
+from gui.village_module import ActivityModuleGui
 from gui.adventure_module import AdventureModuleGui
 
 
@@ -16,7 +16,7 @@ class GameState:
     def state_manager(self):
         if self.state == 'main_menu':
             self.main_menu()
-        if self.state == 'activity_module':
+        if self.state == 'village_module':
             self.activity_module()
         if self.state == 'adventure_module':
             self.adventure_module()
@@ -33,7 +33,7 @@ class GameState:
                     run = False
 
                 if menu.button_play.check_for_input(pygame.mouse.get_pos()):
-                    self.state = 'activity_module'
+                    self.state = 'village_module'
                     self.state_manager()
 
                 if menu.button_options.check_for_input(pygame.mouse.get_pos()):
@@ -50,6 +50,7 @@ class GameState:
             pygame.display.update()
 
         pygame.quit()
+
     def activity_module(self):
         activity_panel = ActivityModuleGui()
         run = True
@@ -127,6 +128,7 @@ class GameState:
             pygame.display.update()
 
         pygame.quit()
+
     def fight_module(self):
         fight_panel = FightModuleGui()
         fight = Fight()
