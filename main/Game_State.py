@@ -96,11 +96,11 @@ class GameState:
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     run = False
 
-                if adventure_panel.button_menu.check_for_input(pygame.mouse.get_pos()):
-                    self.state = 'main_menu'
+                if adventure_panel.button_back.check_for_input(pygame.mouse.get_pos()):
+                    self.state = 'village_module'
                     self.state_manager()
 
-                if adventure_panel.button_beach.check_for_input(pygame.mouse.get_pos()):
+                if adventure_panel.button_mountain.check_for_input(pygame.mouse.get_pos()):
                     self.state = 'fight_module'
                     self.state_manager()
 
