@@ -95,7 +95,7 @@ class GameState:
         pygame.quit()
 
     def weaponsmith(self):
-        player = Player(500, 500, 'Player', 25, 5, 110)  #statystyki powinny być zdefiniowane ogólnie ?!!!
+        player = Player(500, 500, 'Player', 25, 5, 110)  #########
         weaponsmith_panel = WeaponsmithGui()
         run = True
         while run:
@@ -111,6 +111,8 @@ class GameState:
 
                 if weaponsmith_panel.button_something.check_for_input(pygame.mouse.get_pos()):
                     pass
+
+                #player.show_money(500, 900)
 
             weaponsmith_panel.draw_fight_module_background()
             weaponsmith_panel.update()

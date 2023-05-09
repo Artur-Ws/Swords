@@ -39,3 +39,9 @@ class Player(Character):
         self.level += 1
         self.experience_needed = int(self.experience_needed * 1.2)
         print(f"Your actual level: {self.level}")
+
+    def show_money(self, x, y):
+        font_show_money = pygame.font.Font("comicsans", 32)
+        surface = pygame.display.get_surface()
+        money_info = font_show_money.render("Gold: " + str(self.money), True, (255, 255, 255))
+        surface.blit(money_info, (x, y))

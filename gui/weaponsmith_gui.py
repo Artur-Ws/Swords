@@ -2,6 +2,7 @@ import pygame
 import os
 from gui.button import Button
 import configparser
+
 config = configparser.ConfigParser()
 config.read("config.ini")
 
@@ -12,7 +13,8 @@ class WeaponsmithGui:
         self.screen_height = config.getint("General", "screen_height")
         self.screen_size = (self.screen_width, self.screen_height)
         self.win = pygame.display.set_mode(self.screen_size)
-        self.background = pygame.transform.scale(pygame.image.load(os.path.join('..', 'assets', 'weaponsmith_background.png')),
+        self.background = pygame.transform.scale(pygame.image.load(os.path.join('..', 'assets',
+                                                                                'weaponsmith_background.png')),
                                                  self.screen_size)
 
         self.button_surface = pygame.image.load(os.path.join('..', 'assets', 'button.png'))
@@ -20,7 +22,6 @@ class WeaponsmithGui:
 
         self.button_exit = Button(self.button_surface, 1600, 900, 1600, 900, "exit")
         self.button_something = Button(self.button_surface, self.screen_width / 2, 200, 700, 200, "something")
-        self.inf_money = Button(self.button_surface, 1600, 900, 1600, 900, "blabla")
 
     def draw_fight_module_background(self):
         self.win.blit(self.background, (0, 0))
@@ -36,3 +37,4 @@ class WeaponsmithGui:
     def change_color(self):
         self.button_exit.change_color(pygame.mouse.get_pos())
         self.button_something.change_color(pygame.mouse.get_pos())
+
