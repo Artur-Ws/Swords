@@ -9,7 +9,7 @@ class Player(Character):
         self.backpack = []
         self.backpack_size = 4
         self.level = 1
-        self.experience = 1
+        self.experience = 0
         self.experience_needed = 100
         self.attribiute_points = 10
         self.money = 0
@@ -33,14 +33,14 @@ class Player(Character):
 
     def gain_experience(self, sum_of_enemys_stats):
         self.experience += sum_of_enemys_stats
-        if self.experience >= self.experience_needed:
+        while self.experience >= self.experience_needed:
             self.experience -= self.experience_needed
             self.level_up()
 
     def level_up(self):
         self.level += 1
         self.experience_needed = int(self.experience_needed * 1.2)
-        self.strength += 1
-        self.defense += 1
+        self.strength += 2
+        self.defense += 2
         self.health_points_max += 10
         self.health_points = self.health_points_max
