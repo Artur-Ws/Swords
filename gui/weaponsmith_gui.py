@@ -1,7 +1,11 @@
 import pygame
 import os
 from gui.button import Button
+from gui.label import Label
 import configparser
+from player import Player
+
+player = Player(500, 500, 'Player', 25, 5, 110)
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -22,6 +26,7 @@ class WeaponsmithGui:
 
         self.button_exit = Button(self.button_surface, 1600, 900, 1600, 900, "exit")
         self.button_something = Button(self.button_surface, self.screen_width / 2, 200, 700, 200, "something")
+        self.label_gold = Label( self.screen_width / 2, 500,  f"GOLD: {player.money}")
 
     def draw_fight_module_background(self):
         self.win.blit(self.background, (0, 0))
@@ -29,6 +34,7 @@ class WeaponsmithGui:
     def update(self):
         self.button_exit.update()
         self.button_something.update()
+        self.label_gold.draw_label()
 
     def check_for_input(self):
         self.button_exit.check_for_input(pygame.mouse.get_pos())

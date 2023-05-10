@@ -95,7 +95,7 @@ class GameState:
         pygame.quit()
 
     def weaponsmith(self):
-        player = Player(500, 500, 'Player', 25, 5, 110)  #########
+        player = Player(500, 500, 'Player', 25, 5, 110)
         weaponsmith_panel = WeaponsmithGui()
         run = True
         while run:
