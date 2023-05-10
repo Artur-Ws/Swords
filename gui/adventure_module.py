@@ -22,7 +22,7 @@ class AdventureModuleGui:
         self.button_back = Button(self.button_surface, 600, 950, 600, 950, "back")
         self.button_mountain = Button(self.button_surface, self.screen_width / 2, 150, 700, 150, "mountain")
         self.button_ruins = Button(self.button_surface, 1700, 350, 1700, 350, "ruins")
-        self.button_desert = Button(self.button_surface, 200, 300, 200, 300, "mountain")
+        self.button_desert = Button(self.button_surface, 200, 300, 200, 300, "desert")
         self.button_cave = Button(self.button_surface, 1750, 700, 1750, 700, "cave")
         self.button_forest = Button(self.button_surface, 200, 750, 200, 750, "forest")
 
