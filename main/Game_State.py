@@ -112,12 +112,13 @@ class GameState:
                 if weaponsmith_panel.button_something.check_for_input(pygame.mouse.get_pos()):
                     pass
 
-                #player.show_money(500, 900)
+
 
             weaponsmith_panel.draw_fight_module_background()
             weaponsmith_panel.update()
             weaponsmith_panel.check_for_input()
             weaponsmith_panel.change_color()
+            weaponsmith_panel.label_gold.draw_label(f"GOLD: {player.money}")
 
             debug_log()
             pygame.display.update()
