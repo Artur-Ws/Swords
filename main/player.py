@@ -7,7 +7,7 @@ class Player(Character):
     def __init__(self, x, y, name, strength, defense, health_points):
         super().__init__(x, y, name, strength, defense, health_points)
         self.backpack = []
-        self.backpack_size = 4
+        self.backpack_size = 12
         self.level = 1
         self.experience = 0
         self.experience_needed = 100
@@ -23,13 +23,6 @@ class Player(Character):
     def remove_from_backpack(self, item):
         if item in self.backpack:
             self.backpack.remove(item)
-            print(f"{item} removed from backpack")
-        else:
-            print(f"{item} not found in backpack")
-
-    def expand_backpack(self):
-        self.backpack_size += 1
-        print(f"Backpack size has increased to {self.backpack_size}")
 
     def gain_experience(self, sum_of_enemys_stats):
         self.experience += sum_of_enemys_stats
