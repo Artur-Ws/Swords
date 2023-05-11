@@ -11,7 +11,7 @@ class Player(Character):
         self.experience = 0
         self.experience_needed = 100
         self.attribiute_points = 10
-        self.money = 0
+        self.money = 12345
 
     def add_to_backpack(self, item):
         if len(self.backpack) < self.backpack_size:
@@ -39,3 +39,4 @@ class Player(Character):
         self.level += 1
         self.experience_needed = int(self.experience_needed * 1.2)
         print(f"Your actual level: {self.level}")
+
