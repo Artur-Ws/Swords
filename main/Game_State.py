@@ -112,8 +112,6 @@ class GameState:
                 if weaponsmith_panel.button_something.check_for_input(pygame.mouse.get_pos()):
                     pass
 
-
-
             weaponsmith_panel.draw_fight_module_background()
             weaponsmith_panel.update()
             weaponsmith_panel.check_for_input()
