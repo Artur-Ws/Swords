@@ -25,14 +25,14 @@ class FightModuleGui:
         self.rest_button = Button(self.button_surface,self.screen_width / 2, self.screen_height / 2.5, 700, 500, "Rest" )
         self.player_image = Button(self.button_surface, 500, 500, 500, 500, "Player")
         self.enemy_image = Button(self.button_surface, 1400, 500, 1400, 500, "Enemy")
-        self.player_healthbar = Bar(350, 650, pygame.Color(config.get("Colors", "red")),
-                                    pygame.Color(config.get("Colors", "green")))
-        self.player_staminabar = Bar(350, 700, pygame.Color(config.get("Colors", "white")),
-                                     pygame.Color(config.get("Colors", "orange")))
-        self.enemy_healthbar = Bar(1250, 650, pygame.Color(config.get("Colors", "red")),
-                                   pygame.Color(config.get("Colors", "green")))
-        self.enemy_staminabar = Bar(1250, 700, pygame.Color(config.get("Colors", "white")),
-                                   pygame.Color(config.get("Colors", "orange")))
+        self.player_healthbar = Bar(350, 650, pygame.Color(config.get("Colors", "red_healthbar")),
+                                    pygame.Color(config.get("Colors", "green_healthbar")))
+        self.player_staminabar = Bar(350, 700, pygame.Color(config.get("Colors", "white_staminabar")),
+                                     pygame.Color(config.get("Colors", "orange_staminabar")))
+        self.enemy_healthbar = Bar(1250, 650, pygame.Color(config.get("Colors", "red_healthbar")),
+                                   pygame.Color(config.get("Colors", "green_healthbar")))
+        self.enemy_staminabar = Bar(1250, 700, pygame.Color(config.get("Colors", "white_staminabar")),
+                                   pygame.Color(config.get("Colors", "orange_staminabar")))
 
     def draw_fight_module_background(self):
         self.win.blit(self.background, (0, 0))
