@@ -17,10 +17,10 @@ class Character:
         self.attack = attack
         self.health_points_max = health_points
         self.alive: bool = True
-        self.stamina: int = 100
-        self.stamina_max: int = 100
-        self.lowest_stamina_value: int = 10
-        self.regen_stamina_value: int = 15
+        self.stamina: int = config.getint("CharacterSetting", "init_stamina_value")
+        self.stamina_max: int = config.getint("CharacterSetting", "init_max_stamina_value")
+        self.lowest_stamina_value: int = config.getint("CharacterSetting", "lowest_stamina_value")
+        self.regen_stamina_value: int = config.getint("CharacterSetting", "regen_stamina_value")
         self.light_attack_multiplier = config.getfloat("FightSettings", "light_attack_multiplier")
         self.medium_attack_multiplier = config.getfloat("FightSettings", "medium_attack_multiplier")
         self.heavy_attack_multiplier = config.getfloat("FightSettings", "heavy_attack_multiplier")
@@ -29,8 +29,7 @@ class Character:
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
-
-    def attack(self, target: 'Character', type_attack_multiplier=1):
+    def attack(self, target: 'Character', type_attack_multiplier=1) -> None:
         if self.stamina_check():
             if self.is_blocked(target, "medium"):
                 print(f"{target.name} blocked attack ")
@@ -54,7 +53,7 @@ class Character:
     def heavy_attack(self, target: 'Character'):
         self.attack(target, self.heavy_attack_multiplier)
 
-    def get_damage(self, damage):
+    def get_damage(self, damage) -> None:
         self.health_points -= damage
         if self.health_points < 1:
             self.health_points = 0
@@ -63,13 +62,13 @@ class Character:
         else:
             print(f"{self.name} takes {damage} damage! {self.health_points} HP left.")
 
-    def describe(self):
+    def describe(self) -> None:
         print(f"Name: {self.name}")
         print(f"Strength: {self.strength}")
         print(f"Defense: {self.defense}")
         print(f"Health Points: {self.health_points}")
 
-    def draw(self):
+    def draw(self) -> None:
         surface = pygame.display.get_surface()
         surface.blit(self.image, self.rect)
 
@@ -79,10 +78,10 @@ class Character:
         else:
             return False
 
-    def stamina_use(self, stamina_value):
+    def stamina_use(self, stamina_value) -> None:
         self.stamina -= stamina_value
 
-    def rest(self):
+    def rest(self) -> None:
         if self.stamina + self.regen_stamina_value <= self.stamina_max:
             self.stamina += self.regen_stamina_value
         else:
@@ -96,11 +95,11 @@ class Character:
         base_damage = self.strength * (1 + self.select_chance_draw(-10, 10)/100)
         return base_damage
 
-    def defense_attack_difference(self, opponent: "Character") -> int:
+    def defense_attack_difference(self, opponent: 'Character') -> int:
         difference_of_defense_attack = self.defense - opponent.attack
         return difference_of_defense_attack
 
-    def function_of_block_chance(self, opponent: "Character", attack_type: str) -> int:
+    def function_of_block_chance(self, opponent: 'Character', attack_type: str) -> int:
         base_attack_block_chance = config.getint("FightSettings", "equal_block_attack_attack_chance") + \
                            self.defense_attack_difference(opponent) * \
                            config.getint("FightSettings", "one_point_difference_of_block_attack")
@@ -114,7 +113,7 @@ class Character:
                            config.getint("FightSettings", "difference_chance_between_attack_type")
         return block_chance
 
-    def is_blocked(self, opponent: "Character", attack_type: str) -> bool:
+    def is_blocked(self, opponent: 'Character', attack_type: str) -> bool:
         if self.select_chance_draw() < self.function_of_block_chance(opponent, attack_type):
             return True
         else:
