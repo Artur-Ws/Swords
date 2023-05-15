@@ -1,5 +1,6 @@
 import configparser
 import pygame
+from enum import Enum
 from random import randint
 from debug_log import Debug
 
@@ -8,18 +9,18 @@ config.read("config.ini")
 
 
 class Character:
-    def __init__(self, x, y, name, strength, defense, health_points, attack):
+    def __init__(self, x: int, y: int, name: str, strength: int, defense: int, health_points: int, attack: int):
         self.name = name
         self.strength = strength
         self.defense = defense
         self.health_points = health_points
         self.attack = attack
         self.health_points_max = health_points
-        self.alive = True
-        self.stamina = 100
-        self.stamina_max = 100
-        self.lowest_stamina_value = 10
-        self.regen_stamina_value = 15
+        self.alive: bool = True
+        self.stamina: int = 100
+        self.stamina_max: int = 100
+        self.lowest_stamina_value: int = 10
+        self.regen_stamina_value: int = 15
         self.light_attack_multiplier = config.getfloat("FightSettings", "light_attack_multiplier")
         self.medium_attack_multiplier = config.getfloat("FightSettings", "medium_attack_multiplier")
         self.heavy_attack_multiplier = config.getfloat("FightSettings", "heavy_attack_multiplier")
@@ -72,7 +73,7 @@ class Character:
         surface = pygame.display.get_surface()
         surface.blit(self.image, self.rect)
 
-    def stamina_check(self):
+    def stamina_check(self) -> bool:
         if self.stamina > self.lowest_stamina_value:
             return True
         else:
@@ -87,33 +88,33 @@ class Character:
         else:
             self.stamina = self.stamina_max
 
+    def select_chance_draw(self, first_number_of_draw=1, last_number_of_draw=1000) -> int:
+        chance_draw = randint(first_number_of_draw, last_number_of_draw)
+        return chance_draw
+
     def base_damage(self):
         base_damage = self.strength * (1 + self.select_chance_draw(-10, 10)/100)
         return base_damage
 
-    def select_chance_draw(self, first_number_of_draw = 1, last_number_of_draw = 1000):
-        chance_draw = randint(first_number_of_draw, last_number_of_draw)
-        return chance_draw
-
-    def defense_attack_difference(self, opponent: "Character"):
+    def defense_attack_difference(self, opponent: "Character") -> int:
         difference_of_defense_attack = self.defense - opponent.attack
         return difference_of_defense_attack
 
-    def function_of_block_chance(self, opponent: "Character", attack_type):
-        medium_attack_block_chance = config.getint("FightSettings", "equal_block_attack_attack_chance") + \
+    def function_of_block_chance(self, opponent: "Character", attack_type: str) -> int:
+        base_attack_block_chance = config.getint("FightSettings", "equal_block_attack_attack_chance") + \
                            self.defense_attack_difference(opponent) * \
-                           config.getint("FightSettings","one_point_difference_of_block_attack")
-        if attack_type == self.Attack_Type.strong_attack:
-            block_chance = medium_attack_block_chance + config.getint("FightSettings",
-                                                                      "difference_chance_between_attack_type")
-        if attack_type == "medium":
-            block_chance = medium_attack_block_chance
-        if attack_type == "light":
-            block_chance = medium_attack_block_chance - config.getint("FightSettings",
-                                                                      "difference_chance_between_attack_type")
+                           config.getint("FightSettings", "one_point_difference_of_block_attack")
+        if attack_type == "strong_attack":
+            block_chance = base_attack_block_chance + \
+                           config.getint("FightSettings", "difference_chance_between_attack_type")
+        if attack_type == "medium_attack":
+            block_chance = base_attack_block_chance
+        if attack_type == "light_attack":
+            block_chance = base_attack_block_chance - \
+                           config.getint("FightSettings", "difference_chance_between_attack_type")
         return block_chance
 
-    def is_blocked(self, opponent: "Character", attack_type: str):
+    def is_blocked(self, opponent: "Character", attack_type: str) -> bool:
         if self.select_chance_draw() < self.function_of_block_chance(opponent, attack_type):
             return True
         else:
