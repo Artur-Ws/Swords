@@ -4,7 +4,7 @@ from character import Character
 
 
 class Player(Character):
-    def __init__(self, x, y, name: str, strength: int, defense: int, health_points: int):
+    def __init__(self, x: int, y: int, name: str, strength: int, defense: int, health_points: int):
         super().__init__(x, y, name, strength, defense, health_points)
         self.backpack: list = []
         self.backpack_size: int = 12
