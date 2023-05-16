@@ -24,14 +24,14 @@ class Character:
         self.light_attack_multiplier = config.getfloat("FightSettings", "light_attack_multiplier")
         self.medium_attack_multiplier = config.getfloat("FightSettings", "medium_attack_multiplier")
         self.heavy_attack_multiplier = config.getfloat("FightSettings", "heavy_attack_multiplier")
-        self.Attack_Type = Enum("Attack_Type", "strong_attack medium_attack light_attack")
+        self.attack_type_name = AttackTypeNames
 
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
     def attack(self, target: 'Character', type_attack_multiplier=1) -> None:
         if self.stamina_check():
-            if self.is_blocked(target, "medium"):
+            if self.is_blocked(target):
                 print(f"{target.name} blocked attack ")
                 pass
             else:
@@ -53,7 +53,7 @@ class Character:
     def heavy_attack(self, target: 'Character'):
         self.attack(target, self.heavy_attack_multiplier)
 
-    def get_damage(self, damage) -> None:
+    def get_damage(self, damage: int) -> None:
         self.health_points -= damage
         if self.health_points < 1:
             self.health_points = 0
@@ -99,22 +99,28 @@ class Character:
         difference_of_defense_attack = self.defense - opponent.attack
         return difference_of_defense_attack
 
-    def function_of_block_chance(self, opponent: 'Character', attack_type: str) -> int:
+    def function_of_block_chance(self, opponent: 'Character', attack_type_name: 'AttackTypeNames') -> int:
         base_attack_block_chance = config.getint("FightSettings", "equal_block_attack_attack_chance") + \
                            self.defense_attack_difference(opponent) * \
                            config.getint("FightSettings", "one_point_difference_of_block_attack")
-        if attack_type == "strong_attack":
+        if attack_type_name.value == "strong_attack":
             block_chance = base_attack_block_chance + \
                            config.getint("FightSettings", "difference_chance_between_attack_type")
-        if attack_type == "medium_attack":
+        if attack_type_name.value == "medium_attack":
             block_chance = base_attack_block_chance
-        if attack_type == "light_attack":
+        if attack_type_name.value == "light_attack":
             block_chance = base_attack_block_chance - \
                            config.getint("FightSettings", "difference_chance_between_attack_type")
         return block_chance
 
-    def is_blocked(self, opponent: 'Character', attack_type: str) -> bool:
-        if self.select_chance_draw() < self.function_of_block_chance(opponent, attack_type):
+    def is_blocked(self, opponent: 'Character', attack_type_name: 'AttackTypeNames') -> bool:
+        if self.select_chance_draw() < self.function_of_block_chance(opponent, attack_type_name):
             return True
         else:
             return False
+
+
+class AttackTypeNames(Enum):
+    strong_attack = "strong_attack"
+    medium_attack = "medium_attack"
+    light_attack = "light_attack"
