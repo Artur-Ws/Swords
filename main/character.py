@@ -1,6 +1,10 @@
+import configparser
 import pygame
 from debug_log import Debug
 from random import randint
+
+config = configparser.ConfigParser()
+config.read("config.ini")
 
 
 class Character:
@@ -15,10 +19,10 @@ class Character:
         self.stamina_max = 100
         self.lowest_stamina_value = 10
         self.regen_stamina_value = 15
-        self.light_attack_multiplier = 0.5
-        self.medium_attack_multiplier = 1
-        self.heavy_attack_multiplier = 1.5
-        
+        self.light_attack_multiplier = config.getfloat("FightSettings", "light_attack_multiplier")
+        self.medium_attack_multiplier = config.getfloat("FightSettings", "medium_attack_multiplier")
+        self.heavy_attack_multiplier = config.getfloat("FightSettings", "heavy_attack_multiplier")
+
 
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
