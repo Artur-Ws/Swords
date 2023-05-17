@@ -15,42 +15,34 @@ class Character:
         self.stamina_max = 100
         self.lowest_stamina_value = 10
         self.regen_stamina_value = 15
+        self.light_attack_multiplier = 0.5
+        self.medium_attack_multiplier = 1
+        self.heavy_attack_multiplier = 1.5
+        
+
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
 
-    def light_attack(self, target: 'Character'):
+    def attack(self, target: 'Character', type_attack_multiplier ):
         if self.stamina_check():
-            damage = max(0, self.base_damage()*0,5)
+            damage = max(0, self.base_damage() * type_attack_multiplier)
             target.get_damage(damage)
             #think about reference of stamina use value depents on type of action, right now it's hardcoded.
-            self.stamina_use(5)
-            print(f"{self.name} attacks {target.name} for {damage} damage! Your stamina lvl: {self.stamina}")
-        else:
-            self.rest()
-            Debug(f"You're exhausted. Get some sleep. Current stamina lvl: {self.stamina}", 2)
-
-    def medium_attack(self, target: 'Character'):
-        if self.stamina_check():
-            damage = max(0, self.base_damage())
-            target.get_damage(damage)
-            # think about reference of stamina use value depents on type of action, right now it's hardcoded.
             self.stamina_use(10)
             print(f"{self.name} attacks {target.name} for {damage} damage! Your stamina lvl: {self.stamina}")
         else:
             self.rest()
             Debug(f"You're exhausted. Get some sleep. Current stamina lvl: {self.stamina}", 2)
 
+    def light_attack(self, target: 'Character'):
+        self.attack(target, self.light_attack_multiplier)
+
+    def medium_attack(self, target: 'Character'):
+        self.attack(target, self.medium_attack_multiplier)
+
     def heavy_attack(self, target: 'Character'):
-        if self.stamina_check():
-            damage = max(0, self.base_damage()*1,5)
-            target.get_damage(damage)
-            # think about reference of stamina use value depents on type of action, right now it's hardcoded.
-            self.stamina_use(15)
-            print(f"{self.name} attacks {target.name} for {damage} damage! Your stamina lvl: {self.stamina}")
-        else:
-            self.rest()
-            Debug(f"You're exhausted. Get some sleep. Current stamina lvl: {self.stamina}", 2)
+        self.attack(target, self.heavy_attack_multiplier)
 
     def get_damage(self, damage):
         self.health_points -= damage
