@@ -28,7 +28,7 @@ class Character:
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
 
-    def attack(self, target: 'Character', type_attack_multiplier ):
+    def attack(self, target: 'Character', type_attack_multiplier=1):
         if self.stamina_check():
             damage = max(0, self.base_damage() * type_attack_multiplier)
             target.get_damage(damage)
