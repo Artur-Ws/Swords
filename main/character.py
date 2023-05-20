@@ -31,28 +31,28 @@ class Character:
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
 
-    def attack_action(self, target: 'Character', attack_type_name: 'AttackTypeNames') -> None:
+    def attack_action(self, opponent: 'Character', attack_type_name: 'AttackTypeNames') -> None:
         if attack_type_name == "strong_attack":
-            self.type_attack_action(target, attack_type_name)
+            self.type_attack_action(opponent, attack_type_name)
         if attack_type_name == "medium_attack":
-            self.type_attack_action(target, attack_type_name)
+            self.type_attack_action(opponent, attack_type_name)
         if attack_type_name == "light_attack":
-            self.type_attack_action(target, attack_type_name)
+            self.type_attack_action(opponent, attack_type_name)
 
-    def type_attack_action(self, target: 'Character', attack_type_name: 'AttackTypeNames') -> None:
+    def type_attack_action(self, opponent: 'Character', attack_type_name: 'AttackTypeNames') -> None:
         if self.stamina_check():
-            if self.is_blocked(target, attack_type_name):
+            if self.is_blocked(opponent, attack_type_name):
                 self.stamina_use(attack_type_name)
-                print(f"{target.name} blocked attack ")
+                print(f"{opponent.name} blocked attack ")
                 pass
             else:
                 damage = self.damage_attack_type(attack_type_name)
-                target.get_damage(damage)
+                opponent.get_damage(damage)
                 self.stamina_use(attack_type_name)
-                print(f"{self.name} attacks {target.name} for {damage} damage! Your stamina lvl: {self.stamina}")
+                print(f"{self.name} attacks {opponent.name} for {damage} damage! Your stamina lvl: {self.stamina}")
         else:
             self.rest()
-            Debug(f"{self.name}'s exhaust. Get some sleep. Current stamina lvl: {self.stamina}", 1)
+            Debug(f"{self.name}'s exhaust. Get some sleep. Current stamina lvl: {self.stamina}", 2)
 
     def damage_attack_type(self, attack_type_name: 'AttackTypeNames') -> int:
         if attack_type_name == "strong_attack":
@@ -131,7 +131,7 @@ class Character:
 
     def is_blocked(self, opponent: 'Character', attack_type_name: 'AttackTypeNames') -> bool:
         if self.select_chance_draw() < self.function_of_block_chance(opponent, attack_type_name):
-            Debug(f"{opponent.name} blocked attack!", 1)
+            Debug(f"{opponent.name} blocked attack!", 2)
             return True
         else:
             return False
