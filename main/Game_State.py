@@ -131,9 +131,9 @@ class GameState:
 
     def fight_module(self):
         fight_panel = FightModuleGui()
-        fight = Fight()
         player = Character(500, 500, 'Player', 25, 5, 300, 25)
         enemy = Character(1400, 500, 'Enemy', 10, 5, 300, 10)
+        fight = Fight(player, enemy)
         run = True
 
         while run:
@@ -152,12 +152,12 @@ class GameState:
                     self.state_manager()
 
                 if fight_panel.stamina_available_check(player):
-                        if fight_panel.attack_button.check_for_input(pygame.mouse.get_pos()):
-                            fight.fight_action(player, enemy)
+                    if fight_panel.attack_button.check_for_input(pygame.mouse.get_pos()):
+                        fight.fight_action()
 
                 if not fight_panel.stamina_max_lvl_check(player):
                     if fight_panel.rest_button.check_for_input(pygame.mouse.get_pos()):
-                        fight.rest_action(player, enemy)
+                        fight.rest_action()
 
             fight_panel.draw_fight_module_background()
             fight_panel.update()
