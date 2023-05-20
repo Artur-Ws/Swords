@@ -132,8 +132,8 @@ class GameState:
     def fight_module(self):
         fight_panel = FightModuleGui()
         fight = Fight()
-        player = Character(500, 500, 'Player', 25, 5, 1110, 25)
-        enemy = Character(1400, 500, 'Enemy', 10, 5, 1100, 10)
+        player = Character(500, 500, 'Player', 25, 5, 300, 25)
+        enemy = Character(1400, 500, 'Enemy', 10, 5, 300, 10)
         run = True
 
         while run:
