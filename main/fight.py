@@ -1,6 +1,9 @@
 from character import Character, AttackTypeNames
 
 
+attack_type = AttackTypeNames
+
+
 class Fight:
     def _init_(self):
         self.action = "Idle"
@@ -9,15 +12,11 @@ class Fight:
 
     def fight_action(self, player: Character, target: Character):
         if player.alive and target.alive:
-            player.attack(target)
+            player.attack_action(target, attack_type.medium_attack.value)
             if target.alive:
-                target.attack(player)
+                target.attack_action(player, attack_type.medium_attack.value)
 
     def rest_action(self, player: Character, target: Character):
         if player.alive and target.alive:
             player.rest()
-            target.attack(player)
-
-    def target_random_attack_action(self, target: Character, attack_type_name: AttackTypeNames):
-        pass
-
+            target.attack_action(player, attack_type.medium_attack.value)

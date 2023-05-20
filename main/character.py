@@ -21,32 +21,17 @@ class Character:
         self.stamina_max: int = config.getint("CharacterSetting", "init_max_stamina_value")
         self.lowest_stamina_value: int = config.getint("CharacterSetting", "lowest_stamina_value")
         self.regen_stamina_value: int = config.getint("CharacterSetting", "regen_stamina_value")
-        self.strong_attack_stamina_use: int = config.getint("FightSettings", "strong_attack_stamina_use")
-        self.medium_attack_stamina_use: int = config.getint("FightSettings", "strong_attack_stamina_use")
-        self.light_attack_stamina_use: int = config.getint("FightSettings", "strong_attack_stamina_use")
+        self.strong_attack_stamina_use: int = config.getint("CharacterSetting", "strong_attack_stamina_use")
+        self.medium_attack_stamina_use: int = config.getint("CharacterSetting", "strong_attack_stamina_use")
+        self.light_attack_stamina_use: int = config.getint("CharacterSetting", "strong_attack_stamina_use")
         self.light_attack_multiplier: float = config.getfloat("FightSettings", "light_attack_multiplier")
         self.medium_attack_multiplier: float = config.getfloat("FightSettings", "medium_attack_multiplier")
         self.strong_attack_multiplier: float = config.getfloat("FightSettings", "strong_attack_multiplier")
-
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
-    # def attack(self, target: 'Character', type_attack_multiplier=1, attack_type_name: 'AttackTypeNames') -> None:
-    #     if self.stamina_check():
-    #         if self.is_blocked(target, attack_type_name):
-    #             print(f"{target.name} blocked attack ")
-    #             pass
-    #         else:
-    #             damage = max(0, self.base_damage() * type_attack_multiplier)
-    #             target.get_damage(damage)
-    #             #think about reference of stamina use value depents on type of action, right now it's hardcoded.
-    #             self.stamina_use(10)
-    #             print(f"{self.name} attacks {target.name} for {damage} damage! Your stamina lvl: {self.stamina}")
-    #     else:
-    #         self.rest()
-    #         Debug(f"You're exhausted. Get some sleep. Current stamina lvl: {self.stamina}", 2)
 
-    def attack(self, target: 'Character', attack_type_name: 'AttackTypeNames') -> None:
+    def attack_action(self, target: 'Character', attack_type_name: 'AttackTypeNames') -> None:
         if attack_type_name == "strong_attack":
             self.type_attack_action(target, attack_type_name)
         if attack_type_name == "medium_attack":
@@ -57,6 +42,7 @@ class Character:
     def type_attack_action(self, target: 'Character', attack_type_name: 'AttackTypeNames') -> None:
         if self.stamina_check():
             if self.is_blocked(target, attack_type_name):
+                self.stamina_use(attack_type_name)
                 print(f"{target.name} blocked attack ")
                 pass
             else:
@@ -66,18 +52,19 @@ class Character:
                 print(f"{self.name} attacks {target.name} for {damage} damage! Your stamina lvl: {self.stamina}")
         else:
             self.rest()
-            Debug(f"You're exhausted. Get some sleep. Current stamina lvl: {self.stamina}", 2)
+            Debug(f"{self.name}'s exhaust. Get some sleep. Current stamina lvl: {self.stamina}", 1)
 
-    def damage_attack_type(self, attack_type_name: 'AttackTypeNames') -> float:
+    def damage_attack_type(self, attack_type_name: 'AttackTypeNames') -> int:
         if attack_type_name == "strong_attack":
-            damage = self.base_damage() * self.strong_attack_multiplier
+            damage_type_attack = self.base_damage() * self.strong_attack_multiplier
         if attack_type_name == "medium_attack":
-            damage = self.base_damage() * self.medium_attack_multiplier
+            damage_type_attack = self.base_damage() * self.medium_attack_multiplier
         if attack_type_name == "light_attack":
-            damage = self.base_damage() * self.light_attack_multiplier
-        return damage
+            damage_type_attack = self.base_damage() * self.light_attack_multiplier
+        damage_type_attack = round(damage_type_attack)
+        return damage_type_attack
 
-    def get_damage(self, damage: float) -> None:
+    def get_damage(self, damage: int) -> None:
         self.health_points -= damage
         if self.health_points < 1:
             self.health_points = 0
@@ -125,26 +112,26 @@ class Character:
         return base_damage
 
     def defense_attack_difference(self, opponent: 'Character') -> int:
-        difference_of_defense_attack = self.defense - opponent.attack
+        difference_of_defense_attack = opponent.defense - self.attack
         return difference_of_defense_attack
 
     def function_of_block_chance(self, opponent: 'Character', attack_type_name: 'AttackTypeNames') -> float:
         base_attack_block_chance = config.getint("FightSettings", "equal_block_attack_attack_chance") + \
                            self.defense_attack_difference(opponent) * \
                            config.getint("FightSettings", "one_point_difference_of_block_attack")
-        if attack_type_name.value == "strong_attack":
+        if attack_type_name == "strong_attack":
             block_chance = base_attack_block_chance + \
                            config.getint("FightSettings", "difference_chance_between_attack_type")
-        if attack_type_name.value == "medium_attack":
+        if attack_type_name == "medium_attack":
             block_chance = base_attack_block_chance
-        if attack_type_name.value == "light_attack":
+        if attack_type_name == "light_attack":
             block_chance = base_attack_block_chance - \
                            config.getint("FightSettings", "difference_chance_between_attack_type")
         return block_chance
 
     def is_blocked(self, opponent: 'Character', attack_type_name: 'AttackTypeNames') -> bool:
         if self.select_chance_draw() < self.function_of_block_chance(opponent, attack_type_name):
-            Debug(f"{opponent.name} blocked attack!", 2)
+            Debug(f"{opponent.name} blocked attack!", 1)
             return True
         else:
             return False
