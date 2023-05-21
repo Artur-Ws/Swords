@@ -22,11 +22,11 @@ class FightModuleGui:
         self.rest_button = Button(self.button_surface,self.screen_width / 2, self.screen_height/5, 700, 500,
                                   "Rest")
         self.strong_attack_button = Button(self.button_surface, self.screen_width / 2, self.screen_height/3.33, 700, 500,
-                                           "Strong attack", "comicsans", self.screen_height/25.75)
+                                           "Strong attack", "comicsans", 40)
         self.medium_attack_button = Button(self.button_surface, self.screen_width / 2, self.screen_height/2.5, 700, 500,
-                                           "Medium attack", "comicsans", self.screen_height/25.75)
+                                           "Medium attack", "comicsans", 40)
         self.light_attack_button = Button(self.button_surface, self.screen_width / 2, self.screen_height/2, 700, 500,
-                                           "Light attack", "comicsans", self.screen_height/25.75)
+                                           "Light attack", "comicsans", 40)
         self.button_menu = Button(self.button_surface, self.screen_width / 2, 700, 700, 500, "Menu")
         self.player_image = Button(self.button_surface, 500, 500, 500, 500, "Player")
         self.enemy_image = Button(self.button_surface, 1400, 500, 1400, 500, "Enemy")
