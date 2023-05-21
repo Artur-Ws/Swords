@@ -1,7 +1,7 @@
 import pygame
 from debug_log import Debug
 from tools import debug_log
-from character import Character
+from character import Character, AttackTypeNames
 from gui.main_menu_gui import MainMenuGui
 from gui.fight_module_gui import FightModuleGui
 from fight import Fight
@@ -134,6 +134,7 @@ class GameState:
         player = Character(500, 500, 'Player', 25, 5, 300, 25)
         enemy = Character(1400, 500, 'Enemy', 10, 5, 300, 10)
         fight = Fight(player, enemy)
+        attack_type = AttackTypeNames
         run = True
 
         while run:
@@ -153,11 +154,11 @@ class GameState:
 
                 if fight_panel.stamina_available_check(player):
                     if fight_panel.attack_button.check_for_input(pygame.mouse.get_pos()):
-                        fight.fight_action()
+                        fight.fight_action(attack_type.medium_attack)
 
                 if not fight_panel.stamina_max_lvl_check(player):
                     if fight_panel.rest_button.check_for_input(pygame.mouse.get_pos()):
-                        fight.rest_action()
+                        fight.rest_action(attack_type.medium_attack)
 
             fight_panel.draw_fight_module_background()
             fight_panel.update()
