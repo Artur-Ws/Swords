@@ -164,6 +164,10 @@ class GameState:
                     if fight_panel.light_attack_button.check_for_input(pygame.mouse.get_pos()):
                         fight.fight_action(attack_type.light_attack)
 
+                if not fight_panel.stamina_max_lvl_check(player):
+                    if fight_panel.rest_button.check_for_input(pygame.mouse.get_pos()):
+                        fight.rest_action(attack_type.medium_attack)
+
             fight_panel.draw_fight_module_background()
             fight_panel.update()
             fight_panel.change_color(player)

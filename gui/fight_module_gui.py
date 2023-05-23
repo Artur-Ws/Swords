@@ -19,8 +19,7 @@ class FightModuleGui:
 
         self.button_surface = pygame.image.load(os.path.join('..', 'assets', 'button.png'))
         self.button_surface = pygame.transform.scale(self.button_surface, (300, 100))
-        self.rest_button = Button(self.button_surface,self.screen_width / 2, self.screen_height/5, 700, 500,
-                                  "Rest")
+        self.rest_button = Button(self.button_surface, self.screen_width / 2, self.screen_height/5, 700, 500, "Rest")
         self.strong_attack_button = Button(self.button_surface, self.screen_width / 2, self.screen_height/3.33, 700, 500,
                                            "Strong attack", "comicsans", 40)
         self.medium_attack_button = Button(self.button_surface, self.screen_width / 2, self.screen_height/2.5, 700, 500,
