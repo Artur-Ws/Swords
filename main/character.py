@@ -27,8 +27,8 @@ class Character:
         self.light_attack_multiplier: float = config.getfloat("FightSettings", "light_attack_multiplier")
         self.medium_attack_multiplier: float = config.getfloat("FightSettings", "medium_attack_multiplier")
         self.strong_attack_multiplier: float = config.getfloat("FightSettings", "strong_attack_multiplier")
-        self.armor_points: int = 0
-        self.armor_points_max: int= 0
+        self.armor_points: int = 100
+        self.armor_points_max: int = 100
         # self.image = pygame.image.load()
         # self.rect = self.image.get_rect()
         # self.rect.center = (x, y)
@@ -67,13 +67,18 @@ class Character:
         return damage_type_attack
 
     def get_damage(self, damage: int) -> None:
-        self.health_points -= damage
-        if self.health_points < 1:
-            self.health_points = 0
-            self.alive = False
-            print(f"{self.name} has been defeated!")
+        full_damage = damage
+        if self.is_armor():
+            if self.is_damage_more_than_armor(damage):
+                damage -= self.armor_points
+                self.armor_points = 0
+                self.health_points -= damage
+                self.is_dead(full_damage)
+            else:
+                self.armor_points -= damage
         else:
-            print(f"{self.name} takes {damage} damage! {self.health_points} HP left.")
+            self.health_points -= damage
+            self.is_dead(full_damage)
 
     def describe(self) -> None:
         print(f"Name: {self.name}")
@@ -137,6 +142,26 @@ class Character:
             return True
         else:
             return False
+
+    def is_armor(self):
+        if self.armor_points > 0:
+            return True
+        else:
+            return False
+
+    def is_damage_more_than_armor(self, damage: int):
+        if self.armor_points < damage:
+            return True
+        else:
+            return False
+
+    def is_dead(self, full_damage):
+        if self.health_points < 1:
+            self.health_points = 0
+            self.alive = False
+            print(f"{self.name} has been defeated!")
+        else:
+            print(f"{self.name} takes {full_damage} damage! {self.health_points} HP left.")
 
 
 class AttackTypeNames(Enum):
