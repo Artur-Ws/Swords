@@ -211,6 +211,8 @@ class GameState:
             fight_panel.enemy_healthbar.draw(enemy.health_points, enemy.health_points_max)
             fight_panel.player_staminabar.draw(player.stamina, player.stamina_max)
             fight_panel.enemy_staminabar.draw(enemy.stamina, enemy.stamina_max)
+            fight_panel.player_armorbar.draw(player.armor_points, player.armor_points_max)
+            fight_panel.enemy_armorbar.draw(enemy.armor_points, enemy.armor_points_max)
 
             debug_log()
             pygame.display.update()
