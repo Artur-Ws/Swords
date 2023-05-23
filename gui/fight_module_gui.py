@@ -32,13 +32,17 @@ class FightModuleGui:
                                     pygame.Color(config.get("Colors", "green_healthbar")))
         self.player_staminabar = Bar(350, 700, pygame.Color(config.get("Colors", "white_staminabar")),
                                      pygame.Color(config.get("Colors", "orange_staminabar")))
+        self.player_armorbar = Bar(350, 750, pygame.Color(config.get("Colors", "white_armorbar")),
+                                     pygame.Color(config.get("Colors", "grey_armorbar")))
         self.enemy_healthbar = Bar(1250, 650, pygame.Color(config.get("Colors", "red_healthbar")),
                                    pygame.Color(config.get("Colors", "green_healthbar")))
         self.enemy_staminabar = Bar(1250, 700, pygame.Color(config.get("Colors", "white_staminabar")),
                                    pygame.Color(config.get("Colors", "orange_staminabar")))
+        self.enemy_armorbar = Bar(1250, 750, pygame.Color(config.get("Colors", "white_armorbar")),
+                                     pygame.Color(config.get("Colors", "grey_armorbar")))
         self.attack_button_list = [self.strong_attack_button, self.medium_attack_button, self.light_attack_button]
         self.all_button_list = [self.button_menu, self.rest_button, self.strong_attack_button,
-                                self.medium_attack_button, self.light_attack_button]
+                            self.medium_attack_button, self.light_attack_button]
 
     def draw_fight_module_background(self):
         self.win.blit(self.background, (0, 0))
@@ -47,6 +51,7 @@ class FightModuleGui:
         [button.update() for button in self.all_button_list]
         self.player_image.update()
         self.enemy_image.update()
+        self.rest_button.update()
 
     def check_for_input(self, player: "Character"):
         mouse_pos = pygame.mouse.get_pos()
