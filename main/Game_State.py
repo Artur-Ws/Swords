@@ -116,6 +116,7 @@ class GameState:
             weaponsmith_panel.check_for_input()
             weaponsmith_panel.change_color()
             weaponsmith_panel.label_gold.draw_label(f"GOLD: {player.money}")
+            weaponsmith_panel.label_set_backpack_items.draw_label_set(player.backpack)
 
             debug_log()
             pygame.display.update()
