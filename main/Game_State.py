@@ -83,7 +83,7 @@ class GameState:
                 if village_panel.button_inn.check_for_input(pygame.mouse.get_pos()):
                     pass
 
-            village_panel.draw_fight_module_background()
+            village_panel.draw_village_module_background()
             village_panel.update()
             village_panel.change_color()
 
@@ -155,7 +155,7 @@ class GameState:
                     self.state = 'fight_module'
                     self.state_manager()
 
-            adventure_panel.draw_fight_module_background()
+            adventure_panel.draw_adventure_module_background()
             adventure_panel.update()
             adventure_panel.change_color()
 

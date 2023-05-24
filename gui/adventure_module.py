@@ -26,7 +26,7 @@ class AdventureModuleGui:
         self.button_cave = Button(self.button_surface, 1750, 700, 1750, 700, "cave")
         self.button_forest = Button(self.button_surface, 200, 750, 200, 750, "forest")
 
-    def draw_fight_module_background(self):
+    def draw_adventure_module_background(self):
         self.win.blit(self.background, (0, 0))
 
     def update(self):
