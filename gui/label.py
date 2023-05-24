@@ -7,6 +7,7 @@ from pygame.font import Font
 config = configparser.ConfigParser()
 config.read("config.ini")
 
+
 class Label:
     def __init__(self, x_pos: int, y_pos: int, font: str = "comicsans", font_size: int = 50):
         self.x_pos = x_pos
