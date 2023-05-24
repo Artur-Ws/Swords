@@ -5,7 +5,7 @@ from character import Character
 from gui.main_menu_gui import MainMenuGui
 from gui.fight_module_gui import FightModuleGui
 from fight import Fight
-from gui.village_module import ActivityModuleGui
+from gui.village_module import VillageModuleGui
 from gui.weaponsmith_module_gui import WeaponsmithGui
 from gui.adventure_module import AdventureModuleGui
 from player import Player
@@ -19,7 +19,7 @@ class GameState:
         if self.state == 'main_menu':
             self.main_menu()
         if self.state == 'village_module':
-            self.activity_module()
+            self.village_module()
         if self.state == 'weaponsmith_module':
             self.weaponsmith_module()
         if self.state == 'adventure_module':
@@ -55,8 +55,8 @@ class GameState:
 
         pygame.quit()
 
-    def activity_module(self):
-        activity_panel = ActivityModuleGui()
+    def village_module(self):
+        village_panel = VillageModuleGui()
         run = True
         while run:
 
@@ -64,28 +64,28 @@ class GameState:
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     run = False
 
-                if activity_panel.button_adventure.check_for_input(pygame.mouse.get_pos()):
+                if village_panel.button_adventure.check_for_input(pygame.mouse.get_pos()):
                     pass
                     self.state = 'adventure_module'
                     self.state_manager()
 
-                if activity_panel.button_menu.check_for_input(pygame.mouse.get_pos()):
+                if village_panel.button_menu.check_for_input(pygame.mouse.get_pos()):
                     self.state = 'main_menu'
                     self.state_manager()
 
-                if activity_panel.button_weaponsmith.check_for_input(pygame.mouse.get_pos()):
+                if village_panel.button_weaponsmith.check_for_input(pygame.mouse.get_pos()):
                     self.state = 'weaponsmith_module'
                     self.state_manager()
 
-                if activity_panel.button_temple.check_for_input(pygame.mouse.get_pos()):
+                if village_panel.button_temple.check_for_input(pygame.mouse.get_pos()):
                     pass
 
-                if activity_panel.button_inn.check_for_input(pygame.mouse.get_pos()):
+                if village_panel.button_inn.check_for_input(pygame.mouse.get_pos()):
                     pass
 
-            activity_panel.draw_fight_module_background()
-            activity_panel.update()
-            activity_panel.change_color()
+            village_panel.draw_fight_module_background()
+            village_panel.update()
+            village_panel.change_color()
 
             debug_log()
             pygame.display.update()

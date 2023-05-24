@@ -6,7 +6,7 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 
 
-class ActivityModuleGui:
+class VillageModuleGui:
     def __init__(self):
         self.screen_width = config.getint("General", "screen_width")
         self.screen_height = config.getint("General", "screen_height")
