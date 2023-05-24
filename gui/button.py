@@ -1,8 +1,12 @@
 import pygame
+import configparser
 from pygame.surface import Surface
 from pygame.rect import Rect
 from pygame.font import Font
 from typing import Tuple
+
+config = configparser.ConfigParser()
+config.read("config.ini")
 
 
 class Button:
@@ -33,7 +37,8 @@ class Button:
                 left_click:
             return True
 
-    def change_color(self, position: Tuple[int, int], color_default: str ="white", color_hovered: str ="green") -> None:
+    def change_color(self, position: Tuple[int, int], color_default: str = config.get("Colors", "button_default"),
+                     color_hovered: str = config.get("Colors", "button_hovered")) -> None:
         if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top,
                                                                                           self.rect.bottom):
             self.text = self.__button_font.render(self.text_input, True, color_hovered)
