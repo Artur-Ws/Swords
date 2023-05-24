@@ -5,7 +5,7 @@ from pygame.font import Font
 from typing import Tuple
 
 
-class Button():
+class Button:
     def __init__(self, image, x_pos: int, y_pos: int, hitbox_x_pos: int, hitbox_y_pos: int, text_input: str,
                  font: str = "comicsans", font_size: int = 50):
         self.image: Surface = image
