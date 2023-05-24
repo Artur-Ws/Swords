@@ -6,7 +6,9 @@ from gui.main_menu_gui import MainMenuGui
 from gui.fight_module_gui import FightModuleGui
 from fight import Fight
 from gui.village_module import ActivityModuleGui
+from gui.weaponsmith_module_gui import WeaponsmithGui
 from gui.adventure_module import AdventureModuleGui
+from player import Player
 
 
 class GameState:
@@ -18,6 +20,8 @@ class GameState:
             self.main_menu()
         if self.state == 'village_module':
             self.activity_module()
+        if self.state == 'weaponsmith_module':
+            self.weaponsmith_module()
         if self.state == 'adventure_module':
             self.adventure_module()
         if self.state == 'fight_module':
@@ -70,7 +74,8 @@ class GameState:
                     self.state_manager()
 
                 if activity_panel.button_weaponsmith.check_for_input(pygame.mouse.get_pos()):
-                    pass
+                    self.state = 'weaponsmith_module'
+                    self.state_manager()
 
                 if activity_panel.button_temple.check_for_input(pygame.mouse.get_pos()):
                     pass
@@ -81,6 +86,36 @@ class GameState:
             activity_panel.draw_fight_module_background()
             activity_panel.update()
             activity_panel.change_color()
+
+            debug_log()
+            pygame.display.update()
+
+        pygame.quit()
+
+    def weaponsmith_module(self):
+        player = Player(500, 500, 'Player', 25, 5, 110, 25)
+        weaponsmith_panel = WeaponsmithGui()
+        run = True
+
+        while run:
+            Debug(pygame.mouse.get_pos())
+            Debug(f"Player gold: {player.money}")
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    run = False
+
+                if weaponsmith_panel.button_exit.check_for_input(pygame.mouse.get_pos()):
+                    self.state = 'village_module'
+                    self.state_manager()
+
+                if weaponsmith_panel.button_something.check_for_input(pygame.mouse.get_pos()):
+                    pass
+
+            weaponsmith_panel.draw_weaponsmith_module_background()
+            weaponsmith_panel.update()
+            weaponsmith_panel.check_for_input()
+            weaponsmith_panel.change_color()
+            weaponsmith_panel.label_gold.draw_label(f"GOLD: {player.money}")
 
             debug_log()
             pygame.display.update()
@@ -165,7 +200,7 @@ class GameState:
             fight_panel.player_healthbar.draw(player.health_points, player.health_points_max)
             fight_panel.enemy_healthbar.draw(enemy.health_points, enemy.health_points_max)
             fight_panel.player_staminabar.draw(player.stamina, player.stamina_max)
-            fight_panel.enemy_staminabar.draw(enemy.stamina,enemy.stamina_max)
+            fight_panel.enemy_staminabar.draw(enemy.stamina, enemy.stamina_max)
 
             debug_log()
             pygame.display.update()
