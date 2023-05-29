@@ -47,11 +47,6 @@ class FightModuleGui:
 
     def update(self):
         [button.update() for button in self.all_button_list]
-        # self.button_menu.update()
-        # self.strong_attack_button.update()
-        # self.medium_attack_button.update()
-        # self.light_attack_button.update()
-        # self.rest_button.update()
         self.player_image.update()
         self.enemy_image.update()
 
@@ -59,11 +54,6 @@ class FightModuleGui:
         mouse_pos = pygame.mouse.get_pos()
         if self.stamina_available_check(player):
             [button.check_for_input(mouse_pos) for button in self.all_button_list]
-            # self.strong_attack_button.check_for_input(pygame.mouse.get_pos())
-            # self.medium_attack_button.check_for_input(pygame.mouse.get_pos())
-            # self.light_attack_button.check_for_input(pygame.mouse.get_pos())
-            # self.button_menu.check_for_input(pygame.mouse.get_pos())
-            # self.rest_button.check_for_input(pygame.mouse.get_pos())
         else:
             self.button_menu.check_for_input(mouse_pos)
             self.rest_button.check_for_input(mouse_pos)
@@ -73,24 +63,13 @@ class FightModuleGui:
         if self.stamina_available_check(player) and \
                 not self.stamina_max_lvl_check(player):
             [button.change_color(mouse_pos) for button in self.all_button_list]
-            # self.strong_attack_button.change_color(pygame.mouse.get_pos())
-            # self.medium_attack_button.change_color(pygame.mouse.get_pos())
-            # self.light_attack_button.change_color(pygame.mouse.get_pos())
-            # self.button_menu.change_color(pygame.mouse.get_pos())
-            # self.rest_button.change_color(pygame.mouse.get_pos())
         elif self.stamina_available_check(player) and \
                 self.stamina_max_lvl_check(player):
             [attack_button.change_color(mouse_pos) for attack_button in self.attack_button_list]
-            # self.strong_attack_button.change_color(pygame.mouse.get_pos())
-            # self.medium_attack_button.change_color(pygame.mouse.get_pos())
-            # self.light_attack_button.change_color(pygame.mouse.get_pos())
             self.button_menu.change_color(pygame.mouse.get_pos())
             self.rest_button.change_color(pygame.mouse.get_pos(), "black", "black")
         else:
             [attack_button.change_color(mouse_pos, "black", "black") for attack_button in self.attack_button_list]
-            # self.strong_attack_button.change_color(pygame.mouse.get_pos(), "black", "black")
-            # self.medium_attack_button.change_color(pygame.mouse.get_pos(), "black", "black")
-            # self.light_attack_button.change_color(pygame.mouse.get_pos(), "black", "black")
             self.button_menu.change_color(pygame.mouse.get_pos())
             self.rest_button.change_color(pygame.mouse.get_pos())
 
