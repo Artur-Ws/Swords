@@ -6,7 +6,7 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 
 
-class ActivityModuleGui:
+class VillageModuleGui:
     def __init__(self):
         self.screen_width = config.getint("General", "screen_width")
         self.screen_height = config.getint("General", "screen_height")
@@ -25,7 +25,7 @@ class ActivityModuleGui:
         self.button_temple = Button(self.button_surface, 1300, 600, 1300, 600, "temple")
         self.button_inn = Button(self.button_surface, 1450, 800, 1450, 800, "inn")
 
-    def draw_fight_module_background(self):
+    def draw_village_module_background(self):
         self.win.blit(self.background, (0, 0))
 
     def update(self):

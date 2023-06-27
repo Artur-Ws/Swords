@@ -8,14 +8,14 @@ config.read("config.ini")
 
 
 class Player(Character):
-    def __init__(self, x: int, y: int, name: str, strength: int, defense: int, health_points: int):
-        super().__init__(x, y, name, strength, defense, health_points)
+    def __init__(self, x: int, y: int, name: str, strength: int, defense: int, health_points: int, attack: int):
+        super().__init__(x, y, name, strength, defense, health_points, attack)
         self.level: int = config.getint("Player Settings", "starting_level")
         self.experience: int = config.getint("Player Settings", "starting_experience")
         self.experience_needed: int = config.getint("Player Settings", "starting_exp_needed_for_next_level")
         self.attribiute_points: int = config.getint("Player Settings", "starting_attribute_points")
         self.money: int = config.getint("Player Settings", "starting_money")
-        self.backpack: list = []
+        self.backpack: list = ["wine corkscrew", "map", "octanisept", "TickTwister"]
         self.backpack_size: int = config.getint("Player Settings", "backpack_size")
 
     def add_to_backpack(self, item) -> None:

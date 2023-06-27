@@ -6,8 +6,10 @@ from character import Character, AttackTypeNames
 from gui.main_menu_gui import MainMenuGui
 from gui.fight_module_gui import FightModuleGui
 from fight import Fight
-from gui.village_module import ActivityModuleGui
+from gui.village_module import VillageModuleGui
+from gui.weaponsmith_module_gui import WeaponsmithGui
 from gui.adventure_module import AdventureModuleGui
+from player import Player
 
 
 class GameState:
@@ -18,7 +20,9 @@ class GameState:
         if self.state == 'main_menu':
             self.main_menu()
         if self.state == 'village_module':
-            self.activity_module()
+            self.village_module()
+        if self.state == 'weaponsmith_module':
+            self.weaponsmith_module()
         if self.state == 'adventure_module':
             self.adventure_module()
         if self.state == 'fight_module':
@@ -52,8 +56,8 @@ class GameState:
 
         pygame.quit()
 
-    def activity_module(self):
-        activity_panel = ActivityModuleGui()
+    def village_module(self):
+        village_panel = VillageModuleGui()
         run = True
         while run:
 
@@ -61,27 +65,59 @@ class GameState:
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     run = False
 
-                if activity_panel.button_adventure.check_for_input(pygame.mouse.get_pos()):
+                if village_panel.button_adventure.check_for_input(pygame.mouse.get_pos()):
                     pass
                     self.state = 'adventure_module'
                     self.state_manager()
 
-                if activity_panel.button_menu.check_for_input(pygame.mouse.get_pos()):
+                if village_panel.button_menu.check_for_input(pygame.mouse.get_pos()):
                     self.state = 'main_menu'
                     self.state_manager()
 
-                if activity_panel.button_weaponsmith.check_for_input(pygame.mouse.get_pos()):
+                if village_panel.button_weaponsmith.check_for_input(pygame.mouse.get_pos()):
+                    self.state = 'weaponsmith_module'
+                    self.state_manager()
+
+                if village_panel.button_temple.check_for_input(pygame.mouse.get_pos()):
                     pass
 
-                if activity_panel.button_temple.check_for_input(pygame.mouse.get_pos()):
+                if village_panel.button_inn.check_for_input(pygame.mouse.get_pos()):
                     pass
 
-                if activity_panel.button_inn.check_for_input(pygame.mouse.get_pos()):
+            village_panel.draw_village_module_background()
+            village_panel.update()
+            village_panel.change_color()
+
+            debug_log()
+            pygame.display.update()
+
+        pygame.quit()
+
+    def weaponsmith_module(self):
+        player = Player(500, 500, 'Player', 25, 5, 110, 25)
+        weaponsmith_panel = WeaponsmithGui()
+        run = True
+
+        while run:
+            Debug(pygame.mouse.get_pos())
+            Debug(f"Player gold: {player.money}")
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    run = False
+
+                if weaponsmith_panel.button_exit.check_for_input(pygame.mouse.get_pos()):
+                    self.state = 'village_module'
+                    self.state_manager()
+
+                if weaponsmith_panel.button_something.check_for_input(pygame.mouse.get_pos()):
                     pass
 
-            activity_panel.draw_fight_module_background()
-            activity_panel.update()
-            activity_panel.change_color()
+            weaponsmith_panel.draw_weaponsmith_module_background()
+            weaponsmith_panel.update()
+            weaponsmith_panel.check_for_input()
+            weaponsmith_panel.change_color()
+            weaponsmith_panel.label_gold.draw_label(f"GOLD: {player.money}")
+            weaponsmith_panel.label_set_backpack_items.draw_label_set(player.backpack)
 
             debug_log()
             pygame.display.update()
@@ -121,7 +157,7 @@ class GameState:
                     self.state = 'fight_module'
                     self.state_manager()
 
-            adventure_panel.draw_fight_module_background()
+            adventure_panel.draw_adventure_module_background()
             adventure_panel.update()
             adventure_panel.change_color()
 
@@ -174,7 +210,7 @@ class GameState:
             fight_panel.player_healthbar.draw(player.health_points, player.health_points_max)
             fight_panel.enemy_healthbar.draw(enemy.health_points, enemy.health_points_max)
             fight_panel.player_staminabar.draw(player.stamina, player.stamina_max)
-            fight_panel.enemy_staminabar.draw(enemy.stamina,enemy.stamina_max)
+            fight_panel.enemy_staminabar.draw(enemy.stamina, enemy.stamina_max)
 
             debug_log()
             pygame.display.update()
